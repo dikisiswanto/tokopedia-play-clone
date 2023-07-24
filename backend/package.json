@@ -1,0 +1,22 @@
+{
+  "name": "tokopedia-play-clone-backend",
+  "version": "1.0.0",
+  "description": "Backend module of tokopedia play clone app",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "generasi-gigih-3.0"
+  ],
+  "author": "Diki Siswanto",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
