@@ -100,7 +100,7 @@ const deleteChannel = async (req, res) => {
     const deletedChannel = await ChannelService.deleteChannel(channelId);
 
     if (!deletedChannel) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, "Channel not found");
     }
 
     handleResponse(res, 202, "Data deleted successfully", deletedChannel);
