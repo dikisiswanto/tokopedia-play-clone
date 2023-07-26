@@ -4,8 +4,8 @@ const createChannel = async (channelData) => {
   return await ChannelRepository.createChannel(channelData);
 };
 
-const getAllChannels = async () => {
-  return await ChannelRepository.getAllChannels();
+const getChannels = async () => {
+  return await ChannelRepository.getChannels();
 };
 
 const checkUsernameExist = async (username) => {
@@ -32,7 +32,7 @@ const deleteChannel = async (id) => {
 
 module.exports = {
   createChannel,
-  getAllChannels,
+  getChannels,
   getChannelById,
   checkUsernameExist,
   updateChannel,

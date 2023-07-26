@@ -7,7 +7,7 @@ const productRoutes = [
   {
     method: "get",
     path: "/products",
-    handler: ProductController.getAllProducts,
+    handler: ProductController.getProducts,
   },
   {
     method: "get",

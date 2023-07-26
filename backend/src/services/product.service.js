@@ -1,7 +1,7 @@
 const ProductRepository = require("../repositories/product.repository");
 
-const getAllProducts = async () => {
-  return await ProductRepository.getAllProducts();
+const getProducts = async () => {
+  return await ProductRepository.getProducts();
 };
 
 const getProductById = async (id) => {
@@ -25,7 +25,7 @@ const deleteProduct = async (id) => {
 };
 
 module.exports = {
-  getAllProducts,
+  getProducts,
   getProductById,
   getProductsByVideoId,
   createProduct,

@@ -6,9 +6,9 @@ const {
   handleClientError,
 } = require("../utilities/responseHandler");
 
-const getAllProducts = async (req, res) => {
+const getProducts = async (req, res) => {
   try {
-    const products = await ProductService.getAllProducts();
+    const products = await ProductService.getProducts();
 
     handleResponse(res, 200, "Data retrieved successfully", products);
   } catch (error) {
@@ -111,7 +111,7 @@ const deleteProduct = async (req, res) => {
 };
 
 module.exports = {
-  getAllProducts,
+  getProducts,
   getProductById,
   createProduct,
   updateProduct,

@@ -1,6 +1,6 @@
 const { checkSchema } = require("express-validator");
 
-const getAllVideos = checkSchema({
+const getVideos = checkSchema({
   query: {
     optional: true,
     trim: true,
@@ -91,6 +91,6 @@ const postVideo = checkSchema({
 });
 
 module.exports = {
-  getAllVideos,
+  getVideos,
   postVideo,
 };

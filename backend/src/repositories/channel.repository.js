@@ -1,6 +1,6 @@
 const Channel = require("../models/channel.model");
 
-const getAllChannels = async () => {
+const getChannels = async () => {
   const channels = await Channel.find({});
   const totalChannels = await Channel.countDocuments();
   return { channels, totalChannels };
@@ -29,7 +29,7 @@ const deleteChannel = async (id) => {
 
 module.exports = {
   createChannel,
-  getAllChannels,
+  getChannels,
   getChannelById,
   getChannelByUsername,
   updateChannel,

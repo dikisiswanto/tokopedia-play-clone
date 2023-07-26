@@ -7,7 +7,7 @@ const channelRoutes = [
   {
     path: "/channels",
     method: "get",
-    handler: ChannelController.getAllChannels,
+    handler: ChannelController.getChannels,
   },
   {
     path: "/channels/:id",

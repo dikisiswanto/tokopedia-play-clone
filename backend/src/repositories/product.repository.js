@@ -1,6 +1,6 @@
 const Product = require("../models/product.model");
 
-const getAllProducts = async () => {
+const getProducts = async () => {
   const products = await Product.find({}).populate("videoId").exec();
   const totalProducts = await Product.countDocuments();
   return { products, totalProducts };
@@ -29,7 +29,7 @@ const deleteProduct = async (id) => {
 };
 
 module.exports = {
-  getAllProducts,
+  getProducts,
   getProductById,
   getProductsByVideoId,
   createProduct,

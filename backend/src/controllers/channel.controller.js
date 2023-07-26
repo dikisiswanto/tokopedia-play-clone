@@ -7,9 +7,9 @@ const {
   handleResponse,
 } = require("../utilities/responseHandler");
 
-const getAllChannels = async (req, res) => {
+const getChannels = async (req, res) => {
   try {
-    const channels = await ChannelService.getAllChannels();
+    const channels = await ChannelService.getChannels();
 
     handleResponse(res, 200, "Data retrieved successfully", channels);
   } catch (error) {
@@ -111,7 +111,7 @@ const deleteChannel = async (req, res) => {
 
 module.exports = {
   createChannel,
-  getAllChannels,
+  getChannels,
   getChannelById,
   updateChannel,
   deleteChannel,

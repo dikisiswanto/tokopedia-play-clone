@@ -7,7 +7,7 @@ const {
   handleClientError,
 } = require("../utilities/responseHandler");
 
-const getAllVideos = async (req, res) => {
+const getVideos = async (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -27,7 +27,7 @@ const getAllVideos = async (req, res) => {
   const sort = { field: sort_by, order: sort_order };
 
   try {
-    const videos = await VideoService.getAllVideos(
+    const videos = await VideoService.getVideos(
       query,
       sort,
       req.query.page,
@@ -183,7 +183,7 @@ const likeVideo = async (req, res) => {
 };
 
 module.exports = {
-  getAllVideos,
+  getVideos,
   getVideoById,
   getVideosByChannelId,
   createVideo,

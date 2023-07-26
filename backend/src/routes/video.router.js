@@ -7,8 +7,8 @@ const videoRoutes = [
   {
     method: "get",
     path: "/videos",
-    validator: VideoValidator.getAllVideos,
-    handler: VideoController.getAllVideos,
+    validator: VideoValidator.getVideos,
+    handler: VideoController.getVideos,
   },
   {
     method: "get",

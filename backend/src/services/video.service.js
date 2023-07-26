@@ -1,7 +1,7 @@
 const VideoRepository = require("../repositories/video.repository");
 
-const getAllVideos = async (query, sort, page, limit) => {
-  return await VideoRepository.getAllVideos(query, sort, page, limit);
+const getVideos = async (query, sort, page, limit) => {
+  return await VideoRepository.getVideos(query, sort, page, limit);
 };
 
 const getVideoById = async (id) => {
@@ -37,7 +37,7 @@ const getUserLikesCount = async (id) => {
 };
 
 module.exports = {
-  getAllVideos,
+  getVideos,
   getVideoById,
   getVideosByChannelId,
   getUserLikesCount,

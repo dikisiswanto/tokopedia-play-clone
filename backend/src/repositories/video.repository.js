@@ -1,6 +1,6 @@
 const Video = require("../models/video.model");
 
-const getAllVideos = async (query, sort, page = 0, limit = 0) => {
+const getVideos = async (query, sort, page = 0, limit = 0) => {
   const { field = "createdAt", order = "desc" } = sort;
   const filter = {};
   const sortQuery = {};
@@ -79,7 +79,7 @@ const updateVideoViews = async (id) => {
 };
 
 module.exports = {
-  getAllVideos,
+  getVideos,
   getVideoById,
   getVideosByChannelId,
   createVideo,
