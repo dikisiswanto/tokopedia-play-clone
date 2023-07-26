@@ -3,6 +3,7 @@
 ## Database Structure
 
 I create 4 collections - **Channel**, **Comment**, **Product**, and **Video** - to cover most of the required features for this project
+![Database Visualization](https://github.com/dikisiswanto/tokopedia-play-clone/assets/22239074/f794f1a6-048d-42d0-aeb2-fc4e8829904c)
 
 ### Channel Collection
 
