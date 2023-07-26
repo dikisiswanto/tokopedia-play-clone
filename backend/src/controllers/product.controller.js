@@ -75,17 +75,17 @@ const updateProduct = async (req, res) => {
     return handleClientError(res, 400, errors.array());
   }
 
-  const channelId = req.params.id;
-  const channelData = req.body;
+  const productId = req.params.id;
+  const productData = req.body;
 
   try {
     const updatedProduct = await ProductService.updateProduct(
-      channelId,
-      channelData
+      productId,
+      productData
     );
 
     if (!updatedProduct) {
-      return handleClientError(res, 404, "Channel not found");
+      return handleClientError(res, 404, "Product not found");
     }
 
     handleResponse(res, 200, "Data updated successfully", updatedProduct);
@@ -101,7 +101,7 @@ const deleteProduct = async (req, res) => {
     const deletedProduct = await ProductService.deleteProduct(productId);
 
     if (!deletedProduct) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, "Product not found");
     }
 
     handleResponse(res, 202, "Data deleted successfully", deletedProduct);
@@ -112,6 +112,7 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
   getProducts,
+  getProductsByVideoId,
   getProductById,
   createProduct,
   updateProduct,

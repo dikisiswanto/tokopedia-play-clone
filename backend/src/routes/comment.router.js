@@ -7,7 +7,8 @@ const commentRoutes = [
   {
     method: "get",
     path: "/comments",
-    handler: CommentController.getAllComments,
+    validator: CommentValidator.getComments,
+    handler: CommentController.getComments,
   },
   {
     method: "get",
@@ -19,6 +20,23 @@ const commentRoutes = [
     path: "/comments",
     validator: CommentValidator.postComment,
     handler: CommentController.createComment,
+  },
+  {
+    path: "/comments/:id",
+    method: "put",
+    validator: CommentValidator.postComment,
+    handler: CommentController.updateComment,
+  },
+  {
+    path: "/comments/:id",
+    method: "delete",
+    handler: CommentController.deleteComment,
+  },
+  {
+    method: "get",
+    path: "/videos/:videoId/comments",
+    validator: CommentValidator.getComments,
+    handler: CommentController.getCommentsByVideoId,
   },
 ];
 

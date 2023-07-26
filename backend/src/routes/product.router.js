@@ -31,6 +31,11 @@ const productRoutes = [
     method: "delete",
     handler: ProductController.deleteProduct,
   },
+  {
+    method: "get",
+    path: "/videos/:videoId/products",
+    handler: ProductController.getProductsByVideoId,
+  },
 ];
 
 productRoutes.forEach((route) => {

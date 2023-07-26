@@ -1,7 +1,24 @@
 const CommentRepository = require("../repositories/comment.repository");
 
-const getAllComments = async () => {
-  return await CommentRepository.getAllComments();
+const getComments = async ({
+  videoId = null,
+  page = 1,
+  limit = 10,
+  beforeCommentId,
+} = {}) => {
+  let comments;
+
+  if (beforeCommentId) {
+    comments = await CommentRepository.getCommentsBefore(
+      videoId,
+      beforeCommentId,
+      limit
+    );
+  } else {
+    comments = await CommentRepository.getComments(videoId, page, limit);
+  }
+
+  return comments;
 };
 
 const getCommentById = async (id) => {
@@ -21,7 +38,7 @@ const deleteComment = async (id) => {
 };
 
 module.exports = {
-  getAllComments,
+  getComments,
   getCommentById,
   createComment,
   updateComment,

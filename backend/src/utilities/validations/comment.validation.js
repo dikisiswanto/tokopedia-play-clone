@@ -1,5 +1,33 @@
 const { checkSchema } = require("express-validator");
 
+const getComments = checkSchema({
+  page: {
+    in: "query",
+    optional: true,
+    isInt: {
+      options: { min: 1 },
+      errorMessage: "Invalid page number. Must be a positive integer.",
+    },
+  },
+  limit: {
+    in: "query",
+    optional: true,
+    isInt: {
+      options: { min: 1 },
+      errorMessage: "Invalid limit. Must be a positive integer.",
+    },
+  },
+  before: {
+    in: "query",
+    trim: true,
+    optional: true,
+    isMongoId: {
+      errorMessage:
+        "Invalid videoId format. Please provide a valid MongoDB ObjectId.",
+    },
+  },
+});
+
 const postComment = checkSchema({
   username: {
     in: ["body"],
@@ -49,5 +77,6 @@ const postComment = checkSchema({
 });
 
 module.exports = {
+  getComments,
   postComment,
 };

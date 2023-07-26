@@ -1,11 +1,23 @@
 const ChannelRepository = require('../repositories/channel.repository');
 
+const getChannels = async () => {
+  return await ChannelRepository.getChannels();
+};
+
+const getChannelById = async (id) => {
+  return await ChannelRepository.getChannelById(id);
+};
+
 const createChannel = async (channelData) => {
   return await ChannelRepository.createChannel(channelData);
 };
 
-const getChannels = async () => {
-  return await ChannelRepository.getChannels();
+const updateChannel = async (id, channelData) => {
+  return await ChannelRepository.updateChannel(id, channelData);
+};
+
+const deleteChannel = async (id) => {
+  return await ChannelRepository.deleteChannel(id);
 };
 
 const checkUsernameExist = async (username) => {
@@ -18,23 +30,11 @@ const checkUsernameExist = async (username) => {
   }
 }
 
-const getChannelById = async (id) => {
-  return await ChannelRepository.getChannelById(id);
-};
-
-const updateChannel = async (id, channelData) => {
-  return await ChannelRepository.updateChannel(id, channelData);
-};
-
-const deleteChannel = async (id) => {
-  return await ChannelRepository.deleteChannel(id);
-};
-
 module.exports = {
-  createChannel,
   getChannels,
   getChannelById,
-  checkUsernameExist,
+  createChannel,
   updateChannel,
   deleteChannel,
+  checkUsernameExist,
 };
