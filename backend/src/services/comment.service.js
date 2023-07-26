@@ -37,10 +37,23 @@ const deleteComment = async (id) => {
   return await CommentRepository.deleteComment(id);
 };
 
+const setCookies = (res, cookies) => {
+  const maxAgeInMilliseconds = 1000 * 60 * 60 * 24 * 365 * 10;
+
+  Object.entries(cookies).forEach(([name, value]) => {
+    res.cookie(name, value, {
+      maxAge: maxAgeInMilliseconds,
+      httpOnly: true,
+      path: "/",
+    });
+  });
+}
+
 module.exports = {
   getComments,
   getCommentById,
   createComment,
   updateComment,
   deleteComment,
+  setCookies,
 };

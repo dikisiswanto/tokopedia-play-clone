@@ -1,4 +1,5 @@
 const ProductService = require("../services/product.service");
+const VideoService = require("../services/video.service");
 const { validationResult } = require("express-validator");
 const {
   handleServerError,

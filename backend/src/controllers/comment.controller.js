@@ -1,4 +1,5 @@
 const CommentService = require("../services/comment.service");
+const AvatarService = require("../services/avatar.service");
 const VideoService = require("../services/video.service");
 const { validationResult } = require("express-validator");
 const {
@@ -91,7 +92,15 @@ const createComment = async (req, res) => {
       return handleClientError(res, 404, "Video not found");
     }
 
+    if (!commentData.avatar) {
+      commentData.avatar = AvatarService.generateAvatar(commentData.username);
+    }
+
     const createdComment = await CommentService.createComment(commentData);
+    const { username, fullname, avatar } = commentData;
+    const cookiesToSet = { username, fullname, avatar };
+
+    CommentService.setCookies(res, cookiesToSet)
 
     handleResponse(res, 201, "Data created successfully", createdComment);
   } catch (error) {

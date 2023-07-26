@@ -166,12 +166,12 @@ const likeVideo = async (req, res) => {
       return handleClientError(res, 409, "You have already liked this video");
     }
 
+    const maxAgeInMilliseconds = 1000 * 60 * 60 * 24 * 365 * 10;
+
     res.cookie(`video_likes_${videoId}`, true, {
-      maxAge: undefined, // Cookie never expires
+      maxAge: maxAgeInMilliseconds,
       httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
-      path: '/',
+      path: "/",
     });
 
     video = await VideoService.likeVideo(videoId, userIpAddress);

@@ -5,7 +5,6 @@ const getComments = async (videoId = null, page = 0, limit = 10) => {
   const skip = page && limit ? (page - 1) * limit : page;
 
   const comments = await Comment.find(filter)
-    .populate("videoId")
     .sort({ _id: -1 })
     .skip(skip)
     .limit(limit)
@@ -24,7 +23,6 @@ const getCommentsBefore = async (videoId = null, lastCommentId, limit = 10) => {
   }
 
   const comments = await Comment.find(filter)
-    .populate("videoId")
     .sort({ _id: -1 })
     .limit(limit)
     .lean();
