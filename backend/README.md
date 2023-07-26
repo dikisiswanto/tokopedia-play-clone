@@ -2,7 +2,7 @@
 
 ## Database Structure
 
-I have designed four collections - Channel, Comment, Product, and Video - to cover all the required features for this project
+I create 4 collections - **Channel**, **Comment**, **Product**, and **Video** - to cover most of the required features for this project
 
 ### Channel Collection
 
