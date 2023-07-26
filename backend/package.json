@@ -4,7 +4,9 @@
   "description": "Backend module of tokopedia play clone app",
   "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "keywords": [
     "generasi-gigih-3.0"
@@ -14,6 +16,7 @@
   "dependencies": {
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-validator": "^7.0.1",
     "mongoose": "^7.4.0"
   },
   "devDependencies": {
