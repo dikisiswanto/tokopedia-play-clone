@@ -44,7 +44,7 @@ const getVideoById = async (req, res) => {
   const videoId = req.params.id;
 
   try {
-    const { video } = await VideoService.getVideoById(videoId);
+    const video = await VideoService.getVideoById(videoId);
 
     if (!video) {
       return handleClientError(res, 404, "Video not found");
@@ -146,7 +146,8 @@ const playVideo = async (req, res) => {
   const videoId = req.params.id;
 
   try {
-    const { video } = await VideoService.getVideoById(videoId);
+    const video = await VideoService.getVideoById(videoId);
+
     if (!video) {
       return handleClientError(res, 404, "Video not found");
     }
@@ -170,7 +171,7 @@ const likeVideo = async (req, res) => {
       return handleClientError(res, 404, "Video not found");
     }
 
-    if (video.likes.includes(userIpAddress)) {
+    if (video.likes?.includes(userIpAddress)) {
       return handleClientError(res, 409, "You have already liked this video");
     }
 

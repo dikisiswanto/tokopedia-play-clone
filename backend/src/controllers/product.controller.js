@@ -37,7 +37,7 @@ const getProductsByVideoId = async (req, res) => {
   const videoId = req.params.videoId;
 
   try {
-    const { video } = await VideoService.getVideoById(videoId);
+    const video = await VideoService.getVideoById(videoId);
 
     if (!video) {
       return handleClientError(res, 404, "videoId you provide doesn't match any record");
