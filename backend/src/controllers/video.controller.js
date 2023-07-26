@@ -44,7 +44,7 @@ const getVideoById = async (req, res) => {
   const videoId = req.params.id;
 
   try {
-    const video = await VideoService.getVideoById(videoId);
+    const { video } = await VideoService.getVideoById(videoId);
 
     if (!video) {
       return handleClientError(res, 404, "Video not found");
@@ -63,7 +63,7 @@ const getVideosByChannelId = async (req, res) => {
     const channel = await ChannelService.getChannelById(channelId);
 
     if (!channel) {
-      return handleClientError(res, 404, "Channel not found");
+      return handleClientError(res, 404, "channelId you provide doesn't match any record");
     }
 
     const videos = await VideoService.getVideosByChannelId(channelId);
@@ -84,6 +84,12 @@ const createVideo = async (req, res) => {
   const videoData = req.body;
 
   try {
+    const channel = await ChannelService.getChannelById(videoData.channelId);
+
+    if (!channel) {
+      return handleClientError(res, 404, "channelId you provide doesn't match any record");
+    }
+
     const createdVideo = await VideoService.createVideo(videoData);
     handleResponse(res, 201, "Data created successfully", createdVideo);
   } catch (error) {
@@ -102,6 +108,12 @@ const updateVideo = async (req, res) => {
   const videoData = req.body;
 
   try {
+    const channel = await ChannelService.getChannelById(videoData.channelId);
+
+    if (!channel) {
+      return handleClientError(res, 404, "channelId you provide doesn't match any record");
+    }
+
     const updatedVideo = await VideoService.updateVideo(videoId, videoData);
 
     if (!updatedVideo) {
@@ -134,7 +146,7 @@ const playVideo = async (req, res) => {
   const videoId = req.params.id;
 
   try {
-    const video = await VideoService.getVideoById(videoId);
+    const { video } = await VideoService.getVideoById(videoId);
     if (!video) {
       return handleClientError(res, 404, "Video not found");
     }

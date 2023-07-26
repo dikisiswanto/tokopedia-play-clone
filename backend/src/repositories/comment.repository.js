@@ -10,24 +10,22 @@ const getComments = async (videoId = null, page = 0, limit = 10) => {
     .limit(limit)
     .lean();
 
-  const totalComments = await Comment.countDocuments();
+  const totalComments = await Comment.countDocuments(filter);
 
   return { comments, totalComments };
 };
 
 const getCommentsBefore = async (videoId = null, lastCommentId, limit = 10) => {
-  const filter = { _id: { $lt: lastCommentId } };
+  const filter = videoId ? { videoId } : {};
 
-  if (videoId) {
-    filter["videoId"] = videoId;
-  }
+  const totalComments = await Comment.countDocuments(filterByVideoId);
+
+  filter["_id"] = { $lt: lastCommentId };
 
   const comments = await Comment.find(filter)
     .sort({ _id: -1 })
     .limit(limit)
     .lean();
-
-  const totalComments = await Comment.countDocuments({ videoId });
 
   return { comments, totalComments };
 };

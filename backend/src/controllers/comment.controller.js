@@ -44,7 +44,7 @@ const getCommentsByVideoId = async (req, res) => {
     const video = await VideoService.getVideoById(videoId);
 
     if (!video) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, "videoId you provide doesn't match any record");
     }
 
     const comments = await CommentService.getComments({
@@ -86,10 +86,10 @@ const createComment = async (req, res) => {
   const commentData = req.body;
 
   try {
-    const video = VideoService.getVideoById(commentData.videoId);
+    const video = await VideoService.getVideoById(commentData.videoId);
 
     if (!video) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, "videoId you provide doesn't match any record");
     }
 
     if (!commentData.avatar) {
@@ -100,7 +100,7 @@ const createComment = async (req, res) => {
     const { username, fullname, avatar } = commentData;
     const cookiesToSet = { username, fullname, avatar };
 
-    CommentService.setCookies(res, cookiesToSet)
+    CommentService.setCookies(res, cookiesToSet);
 
     handleResponse(res, 201, "Data created successfully", createdComment);
   } catch (error) {
@@ -119,7 +119,13 @@ const updateComment = async (req, res) => {
   const commentData = req.body;
 
   try {
-    const updatedComment = await Comment.updateComment(commentId, commentData);
+    const video = await VideoService.getVideoById(commentData.videoId);
+
+    if (!video) {
+      return handleClientError(res, 404, "videoId you provide doesn't match any record");
+    }
+
+    const updatedComment = await CommentService.updateComment(commentId, commentData);
 
     if (!updatedComment) {
       return handleClientError(res, 404, "Comment not found");

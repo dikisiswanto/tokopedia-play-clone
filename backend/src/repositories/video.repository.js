@@ -51,7 +51,7 @@ const getVideosByChannelId = async (channelId) => {
 };
 
 const createVideo = async (videoData) => {
-  return await Video.create(videoData).populate("channelId").exec();
+  return await Video.create(videoData);
 };
 
 const updateVideo = async (id, videoData) => {
