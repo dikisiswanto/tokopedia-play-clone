@@ -23,7 +23,7 @@ const getComments = checkSchema({
     optional: true,
     isMongoId: {
       errorMessage:
-        "Invalid videoId format. Please provide a valid MongoDB ObjectId.",
+        "Invalid commentId format. Please provide a valid MongoDB ObjectId.",
     },
   },
 });
