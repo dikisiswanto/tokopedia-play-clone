@@ -47,7 +47,7 @@ const setCookies = (res, cookies) => {
       path: "/",
     });
   });
-}
+};
 
 module.exports = {
   getComments,

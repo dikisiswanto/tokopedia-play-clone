@@ -1,4 +1,4 @@
-const ChannelRepository = require('../repositories/channel.repository');
+const ChannelRepository = require("../repositories/channel.repository");
 
 const getChannels = async () => {
   return await ChannelRepository.getChannels();
@@ -25,10 +25,10 @@ const checkUsernameExist = async (username) => {
     const channel = await ChannelRepository.getChannelByUsername(username);
     return channel !== null;
   } catch (error) {
-    console.error('Error checking username existence:', error.message);
+    console.error("Error checking username existence:", error.message);
     return false;
   }
-}
+};
 
 module.exports = {
   getChannels,

@@ -10,7 +10,7 @@ const getProductById = async (id) => {
 
 const getProductsByVideoId = async (videoId) => {
   return await ProductRepository.getProductsByVideoId(videoId);
-}
+};
 
 const createProduct = async (productData) => {
   return await ProductRepository.createProduct(productData);

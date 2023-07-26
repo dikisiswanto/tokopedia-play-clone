@@ -63,7 +63,11 @@ const getVideosByChannelId = async (req, res) => {
     const channel = await ChannelService.getChannelById(channelId);
 
     if (!channel) {
-      return handleClientError(res, 404, "channelId you provide doesn't match any record");
+      return handleClientError(
+        res,
+        404,
+        "channelId you provide doesn't match any record"
+      );
     }
 
     const videos = await VideoService.getVideosByChannelId(channelId);
@@ -87,7 +91,11 @@ const createVideo = async (req, res) => {
     const channel = await ChannelService.getChannelById(videoData.channelId);
 
     if (!channel) {
-      return handleClientError(res, 404, "channelId you provide doesn't match any record");
+      return handleClientError(
+        res,
+        404,
+        "channelId you provide doesn't match any record"
+      );
     }
 
     const createdVideo = await VideoService.createVideo(videoData);
@@ -111,7 +119,11 @@ const updateVideo = async (req, res) => {
     const channel = await ChannelService.getChannelById(videoData.channelId);
 
     if (!channel) {
-      return handleClientError(res, 404, "channelId you provide doesn't match any record");
+      return handleClientError(
+        res,
+        404,
+        "channelId you provide doesn't match any record"
+      );
     }
 
     const updatedVideo = await VideoService.updateVideo(videoId, videoData);

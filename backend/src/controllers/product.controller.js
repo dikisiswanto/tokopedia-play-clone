@@ -40,7 +40,11 @@ const getProductsByVideoId = async (req, res) => {
     const video = await VideoService.getVideoById(videoId);
 
     if (!video) {
-      return handleClientError(res, 404, "videoId you provide doesn't match any record");
+      return handleClientError(
+        res,
+        404,
+        "videoId you provide doesn't match any record"
+      );
     }
 
     const products = await ProductService.getProductsByVideoId(videoId);
@@ -49,7 +53,7 @@ const getProductsByVideoId = async (req, res) => {
   } catch (error) {
     handleServerError(res, error);
   }
-}
+};
 
 const createProduct = async (req, res) => {
   const errors = validationResult(req);
@@ -64,7 +68,11 @@ const createProduct = async (req, res) => {
     const video = await VideoService.getVideoById(productData.videoId);
 
     if (!video) {
-      return handleClientError(res, 404, "videoId you provide doesn't match any record");
+      return handleClientError(
+        res,
+        404,
+        "videoId you provide doesn't match any record"
+      );
     }
 
     const createdProduct = await ProductService.createProduct(productData);
@@ -89,7 +97,11 @@ const updateProduct = async (req, res) => {
     const video = await VideoService.getVideoById(productData.videoId);
 
     if (!video) {
-      return handleClientError(res, 404, "videoId you provide doesn't match any record");
+      return handleClientError(
+        res,
+        404,
+        "videoId you provide doesn't match any record"
+      );
     }
 
     const updatedProduct = await ProductService.updateProduct(

@@ -12,16 +12,16 @@ const handleClientError = (res, code, error) => {
     code,
     error,
   });
-}
+};
 
 const handleResponse = (res, code, message, data) => {
   return res.status(code).json({
     success: code >= 200 && code < 300,
-    code: code,
+    code,
     message,
     data,
   });
-}
+};
 
 module.exports = {
   handleServerError,
