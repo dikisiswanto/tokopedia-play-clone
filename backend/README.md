@@ -395,8 +395,7 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
         "id": ObjectId (required)
       }
       ```
-   - Query params:
-
+   - Query params: None
    - Data params: 
       ```json
       {
@@ -453,13 +452,13 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       }
       ```
    - Query params:
-    ```json
-      {
-        "page": Number (optional),
-        "limit": Number (optional),
-        "before": ObjectId (optional)
-      }
-      ```
+      ```json
+        {
+          "page": Number (optional),
+          "limit": Number (optional),
+          "before": ObjectId (optional)
+        }
+        ```
    - Data params: None
    - Success response:
      ```json
@@ -521,6 +520,146 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
      ```
    - Error response: Code 500
 
+2. **Get Specified Product**
+   - Endpoint: `GET /products/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data retrieved successfully",
+      "data": {<product object>}
+      }
+     ```
+   - Error response:
+      - Code 404
+      - Code 500
+
+3. **Create Product**
+   - Endpoint: `POST /products`
+   - URL params: None
+   - Query params: None
+   - Data params: 
+      ```json
+      {
+        "url": String,
+        "photos": Array of Strings,
+        "title": String,
+        "price": Number,
+        "videoId": ObjectId,
+      }
+      ```
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 201,
+      "message": "Data created successfully",
+      "data": {<product object>}
+      }
+     ```
+   - Error response:
+      - Code 400
+      - Code 500
+
+4. **Update Specified Product**
+   - Endpoint: `PUT /products/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: 
+      ```json
+      {
+        "url": String,
+        "photos": Array of Strings,
+        "title": String,
+        "price": Number,
+        "videoId": ObjectId,
+      }
+      ```
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data updated successfully",
+      "data": {<product object>}
+      }
+     ```
+   - Error response:
+      - Code 400
+      - Code 404
+      - Code 500
+
+5. **Delete Specified Product**
+   - Endpoint: `DELETE /products/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 202,
+      "message": "Data deleted successfully",
+      "data": {<product object>}
+      }
+     ```
+   - Error response:
+      - Code 404
+      - Code 500
+
+6. **Get All Products Associated with the Specified Video**
+   - Endpoint: `GET /videos/:videoId/products`
+   - URL params:
+      ```json
+      {
+        "videoId": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data retrieved successfully",
+      "data": {
+        "products": [
+          {<product object>},
+          {<product object>},
+          ...
+        ],
+        "totalProducts": 2,
+        "filter": {
+          "videoId": ObjectId
+        }
+       }
+      }
+     ```
+    - Error response:
+      - Code 400
+      - Code 404
+      - Code 500
+
 ### Video Endpoints
 
 <#videoObject>
@@ -533,7 +672,7 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
   "views": Number,
   "likes": Array,
   "thumbnail": String,
-  "channelId": String,
+  "channelId": ObjectId,
   "createdAt": Date,
   "updatedAt": Date
 }
@@ -561,8 +700,8 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       "message": "Data retrieved successfully",
       "data": {
         "videos": [
-          {<videos object>},
-          {<videos object>},
+          {<video object>},
+          {<video object>},
           ...
         ],
         "totalVideos": 2,
@@ -578,6 +717,146 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
    - Error response:
       - Code 500
       - Code 400
+
+2. **Get Specified Video**
+   - Endpoint: `GET /videos/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data retrieved successfully",
+      "data": {<video object>}
+      }
+     ```
+   - Error response:
+      - Code 404
+      - Code 500
+
+3. **Create Video**
+   - Endpoint: `POST /videos`
+   - URL params: None
+   - Query params: None
+   - Data params: 
+      ```json
+      {
+        "title": String,
+        "description": String,
+        "url": String,
+        "thumbnail": String,
+        "channelId": ObjectId,
+      }
+      ```
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 201,
+      "message": "Data created successfully",
+      "data": {<video object>}
+      }
+     ```
+   - Error response:
+      - Code 400
+      - Code 500
+
+4. **Update Specified Video**
+   - Endpoint: `PUT /videos/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: 
+      ```json
+      {
+        "title": String,
+        "description": String,
+        "url": String,
+        "thumbnail": String,
+        "channelId": ObjectId,
+      }
+      ```
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data updated successfully",
+      "data": {<video object>}
+      }
+     ```
+   - Error response:
+      - Code 400
+      - Code 404
+      - Code 500
+
+5. **Delete Specified Video**
+   - Endpoint: `DELETE /videos/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 202,
+      "message": "Data deleted successfully",
+      "data": {<video object>}
+      }
+     ```
+   - Error response:
+      - Code 404
+      - Code 500
+
+6. **Get All Videos Associated with the Specified Channel**
+   - Endpoint: `GET /channels/:channelId/videos`
+   - URL params:
+      ```json
+      {
+        "channelId": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data retrieved successfully",
+      "data": {
+        "videos": [
+          {<video object>},
+          {<video object>},
+          ...
+        ],
+        "totalVideos": 2,
+        "filter": {
+            "channelId": ObjectId
+        }
+       }
+      }
+     ```
+    - Error response:
+      - Code 400
+      - Code 404
+      - Code 500
 
 ## How to Run
 
