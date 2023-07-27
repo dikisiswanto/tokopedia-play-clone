@@ -2,6 +2,12 @@
 
 This repository contains the backend module of the Tokopedia Play Clone App for the Mid-term Full-Stack Engineering class in the Generasi GIGIH 3.0 program.
 
+```
+Name: Diki Siswanto
+Class: FS6
+Participant ID:	GG3FSGP0308
+```
+
 ## Database Structure
 
 I create 4 collections - **Channel**, **Comment**, **Product**, and **Video** - to cover most of the required features for this project
