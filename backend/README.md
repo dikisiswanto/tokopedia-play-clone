@@ -146,6 +146,8 @@ Project Root
 
 ## API Documentation
 
+The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the BASE_PATH, and then adding the specific endpoint you want to access.
+
 ### Channel Endpoints
 
 <#channelObject>
@@ -183,6 +185,107 @@ Project Root
       }
      ```
    - Error response: Code 500
+
+2. **Get Specified Channel**
+   - Endpoint: `GET /channels/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data retrieved successfully",
+      "data": {<channel object>}
+      }
+     ```
+   - Error response:
+      - Code 500
+      - Code 404
+
+3. **Create Channel**
+   - Endpoint: `POST /channels`
+   - URL params: None
+   - Query params: None
+   - Data params: 
+      ```json
+      {
+        "name": String,
+        "username": String,
+        "avatar": String,
+      }
+      ```
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 201,
+      "message": "Data created successfully",
+      "data": {<channel object>}
+      }
+     ```
+   - Error response:
+      - Code 500
+      - Code 404
+
+4. **Update Specified Channel**
+   - Endpoint: `PUT /channels/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: 
+      ```json
+      {
+        "name": String,
+        "username": String,
+        "avatar": String,
+      }
+      ```
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data updated successfully",
+      "data": {<channel object>}
+      }
+     ```
+   - Error response:
+      - Code 500
+      - Code 404
+
+5. **Delete Specified Channel**
+   - Endpoint: `DELETE /channels/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 202,
+      "message": "Data deleted successfully",
+      "data": {<channel object>}
+      }
+     ```
+   - Error response:
+      - Code 500
+      - Code 404
 
 ### Comment Endpoints
 
