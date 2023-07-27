@@ -184,7 +184,8 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
        }
       }
      ```
-   - Error response: Code 500
+   - Error response:
+      - Code 500
 
 2. **Get Specified Channel**
    - Endpoint: `GET /channels/:id`
@@ -206,8 +207,8 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       }
      ```
    - Error response:
-      - Code 500
       - Code 404
+      - Code 500
 
 3. **Create Channel**
    - Endpoint: `POST /channels`
@@ -231,8 +232,8 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       }
      ```
    - Error response:
+      - Code 400
       - Code 500
-      - Code 404
 
 4. **Update Specified Channel**
    - Endpoint: `PUT /channels/:id`
@@ -261,8 +262,9 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       }
      ```
    - Error response:
-      - Code 500
+      - Code 400
       - Code 404
+      - Code 500
 
 5. **Delete Specified Channel**
    - Endpoint: `DELETE /channels/:id`
@@ -284,8 +286,8 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       }
      ```
    - Error response:
-      - Code 500
       - Code 404
+      - Code 500
 
 ### Comment Endpoints
 
@@ -332,8 +334,153 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       }
      ```
    - Error response:
-      - Code 500
       - Code 400
+      - Code 500
+
+2. **Get Specified Comment**
+   - Endpoint: `GET /comment/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data retrieved successfully",
+      "data": {<comment object>}
+      }
+     ```
+   - Error response:
+      - Code 404
+      - Code 500
+
+3. **Create Comment**
+   - Endpoint: `POST /comments`
+   - URL params: None
+   - Query params: None
+   - Data params: 
+      ```json
+      {
+        "username": String,
+        "fullname": String,
+        "avatar": String,
+        "comment": String,
+        "videoId": ObjectId,
+      }
+      ```
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 201,
+      "message": "Data created successfully",
+      "data": {<comment object>}
+      }
+     ```
+   - Error response:
+      - Code 400
+      - Code 500
+
+4. **Update Specified Comment**
+   - Endpoint: `PUT /comments/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params:
+
+   - Data params: 
+      ```json
+      {
+        "username": String,
+        "fullname": String,
+        "avatar": String,
+        "comment": String,
+        "videoId": ObjectId,
+      }
+      ```
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data updated successfully",
+      "data": {<comment object>}
+      }
+     ```
+   - Error response:
+      - Code 400
+      - Code 404
+      - Code 500
+
+5. **Delete Specified Comment**
+   - Endpoint: `DELETE /comments/:id`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 202,
+      "message": "Data deleted successfully",
+      "data": {<comment object>}
+      }
+     ```
+   - Error response:
+      - Code 404
+      - Code 500
+
+6. **Get All Comments Associated with the Specified Video**
+   - Endpoint: `GET /videos/:videoId/comments`
+   - URL params:
+      ```json
+      {
+        "videoId": ObjectId (required)
+      }
+      ```
+   - Query params:
+    ```json
+      {
+        "page": Number (optional),
+        "limit": Number (optional),
+        "before": ObjectId (optional)
+      }
+      ```
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Data retrieved successfully",
+      "data": {
+        "comments": [
+          {<comment object>},
+          {<comment object>},
+          ...
+        ],
+        "totalComments": 2
+       }
+      }
+     ```
+    - Error response:
+      - Code 400
+      - Code 404
+      - Code 500
 
 ### Product Endpoints
 
