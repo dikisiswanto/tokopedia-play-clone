@@ -149,7 +149,7 @@ Project Root
      ```
    - After cloning process is done, change directory to `backend` folder:
       ```
-      cd backend/
+      cd tokopedia-play-clone/backend/
       ```
 
 2. **Install Dependencies**
