@@ -1,29 +1,28 @@
-const { checkSchema } = require("express-validator");
+const { checkSchema } = require('express-validator');
 
 const postChannel = checkSchema({
   name: {
-    in: ["body"],
+    in: ['body'],
     notEmpty: {
-      errorMessage: "Name is required.",
+      errorMessage: 'Name is required.',
     },
   },
   username: {
-    in: ["body"],
+    in: ['body'],
     trim: true,
     notEmpty: {
-      errorMessage: "Username is required.",
+      errorMessage: 'Username is required.',
     },
     matches: {
       options: /^[a-zA-Z0-9_]+$/,
-      errorMessage:
-        "Username can only contain alphanumeric characters and underscores.",
+      errorMessage: 'Username can only contain alphanumeric characters and underscores.',
     },
   },
   avatar: {
-    in: ["body"],
+    in: ['body'],
     optional: true,
     isURL: {
-      errorMessage: "Invalid avatar URL format",
+      errorMessage: 'Invalid avatar URL format',
     },
   },
 });

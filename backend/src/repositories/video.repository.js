@@ -1,25 +1,25 @@
-const Video = require("../models/video.model");
+const Video = require('../models/video.model');
 
 const getVideos = async (query, sort, page = 0, limit = 0) => {
-  const { field = "createdAt", order = "desc" } = sort;
+  const { field = 'createdAt', order = 'desc' } = sort;
   const filter = {};
   const sortQuery = {};
 
   if (query) {
     filter.$or = [
-      { title: { $regex: query, $options: "i" } },
-      { description: { $regex: query, $options: "i" } },
+      { title: { $regex: query, $options: 'i' } },
+      { description: { $regex: query, $options: 'i' } },
     ];
   }
 
   if (field) {
-    sortQuery[field] = order === "desc" ? -1 : 1;
+    sortQuery[field] = order === 'desc' ? -1 : 1;
   }
 
   const skip = page && limit ? (page - 1) * limit : page;
 
   const videos = await Video.find(filter)
-    .populate("channelId")
+    .populate('channelId')
     .sort(sortQuery)
     .skip(skip)
     .limit(limit)
@@ -27,7 +27,14 @@ const getVideos = async (query, sort, page = 0, limit = 0) => {
 
   const totalVideos = await Video.countDocuments(filter);
 
-  return { videos, totalVideos, sort: { field, order }, page, limit, query };
+  return {
+    videos,
+    totalVideos,
+    sort: { field, order },
+    page,
+    limit,
+    query,
+  };
 };
 
 const getUserLikesCount = async (id) => {
@@ -36,7 +43,7 @@ const getUserLikesCount = async (id) => {
 };
 
 const getVideoById = async (id) => {
-  const video = await Video.findById(id).populate("channelId").exec();
+  const video = await Video.findById(id).populate('channelId').exec();
   if (!video) {
     return video;
   }
@@ -50,33 +57,22 @@ const getVideosByChannelId = async (channelId) => {
   return { videos, totalVideos, filter: { channelId } };
 };
 
-const createVideo = async (videoData) => {
-  return await Video.create(videoData);
-};
+const createVideo = async (videoData) => await Video.create(videoData);
 
-const updateVideo = async (id, videoData) => {
-  return await Video.findByIdAndUpdate(id, videoData, { new: true });
-};
+const updateVideo = async (id, videoData) =>
+  await Video.findByIdAndUpdate(id, videoData, { new: true });
 
-const deleteVideo = async (id) => {
-  return await Video.findByIdAndDelete(id);
-};
+const deleteVideo = async (id) => await Video.findByIdAndDelete(id);
 
-const addUserLike = async (id, userIpAddress) => {
-  return await Video.findByIdAndUpdate(
-    id,
-    { $push: { likes: userIpAddress } },
-    { new: true }
-  )
-    .populate("channelId")
+const addUserLike = async (id, userIpAddress) =>
+  await Video.findByIdAndUpdate(id, { $push: { likes: userIpAddress } }, { new: true })
+    .populate('channelId')
     .exec();
-};
 
-const updateVideoViews = async (id) => {
-  return await Video.findByIdAndUpdate(id, { $inc: { views: 1 } })
-    .populate("channelId")
+const updateVideoViews = async (id) =>
+  await Video.findByIdAndUpdate(id, { $inc: { views: 1 } })
+    .populate('channelId')
     .exec();
-};
 
 module.exports = {
   getVideos,

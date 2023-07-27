@@ -1,4 +1,4 @@
-const Product = require("../models/product.model");
+const Product = require('../models/product.model');
 
 const getProducts = async () => {
   const products = await Product.find({});
@@ -6,9 +6,7 @@ const getProducts = async () => {
   return { products, totalProducts };
 };
 
-const getProductById = async (id) => {
-  return await Product.findById(id);
-};
+const getProductById = async (id) => await Product.findById(id);
 
 const getProductsByVideoId = async (videoId) => {
   const products = await Product.find({ videoId });
@@ -16,17 +14,12 @@ const getProductsByVideoId = async (videoId) => {
   return { products, totalProducts, filter: { videoId } };
 };
 
-const createProduct = async (productData) => {
-  return await Product.create(productData);
-};
+const createProduct = async (productData) => await Product.create(productData);
 
-const updateProduct = async (id, productData) => {
-  return await Product.findByIdAndUpdate(id, productData, { new: true });
-};
+const updateProduct = async (id, productData) =>
+  await Product.findByIdAndUpdate(id, productData, { new: true });
 
-const deleteProduct = async (id) => {
-  return await Product.findByIdAndDelete(id);
-};
+const deleteProduct = async (id) => await Product.findByIdAndDelete(id);
 
 module.exports = {
   getProducts,

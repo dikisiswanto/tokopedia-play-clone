@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.js",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix --ext .js"
   },
   "keywords": [
     "generasi-gigih-3.0"
@@ -20,6 +22,12 @@
     "mongoose": "^7.4.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^5.0.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.0"
   }
 }

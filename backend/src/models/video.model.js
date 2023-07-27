@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const videoSchema = new mongoose.Schema(
   {
@@ -10,13 +10,13 @@ const videoSchema = new mongoose.Schema(
     thumbnail: { type: String, required: true, trim: true },
     channelId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Channel",
+      ref: 'Channel',
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const Video = mongoose.model("Video", videoSchema);
+const Video = mongoose.model('Video', videoSchema);
 
 module.exports = Video;

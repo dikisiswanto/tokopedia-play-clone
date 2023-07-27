@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const channelSchema = new mongoose.Schema(
   {
@@ -12,9 +12,9 @@ const channelSchema = new mongoose.Schema(
     },
     avatar: { type: String, required: true, trim: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const Channel = mongoose.model("Channel", channelSchema);
+const Channel = mongoose.model('Channel', channelSchema);
 
 module.exports = Channel;

@@ -1,19 +1,10 @@
-const CommentRepository = require("../repositories/comment.repository");
+const CommentRepository = require('../repositories/comment.repository');
 
-const getComments = async ({
-  videoId = null,
-  page = 1,
-  limit = 10,
-  beforeCommentId,
-} = {}) => {
+const getComments = async ({ videoId = null, page = 1, limit = 10, beforeCommentId } = {}) => {
   let comments;
 
   if (beforeCommentId) {
-    comments = await CommentRepository.getCommentsBefore(
-      videoId,
-      beforeCommentId,
-      limit
-    );
+    comments = await CommentRepository.getCommentsBefore(beforeCommentId, videoId, limit);
   } else {
     comments = await CommentRepository.getComments(videoId, page, limit);
   }
@@ -21,21 +12,14 @@ const getComments = async ({
   return comments;
 };
 
-const getCommentById = async (id) => {
-  return await CommentRepository.getCommentById(id);
-};
+const getCommentById = async (id) => await CommentRepository.getCommentById(id);
 
-const createComment = async (commentData) => {
-  return await CommentRepository.createComment(commentData);
-};
+const createComment = async (commentData) => await CommentRepository.createComment(commentData);
 
-const updateComment = async (id, commentData) => {
-  return await CommentRepository.updateComment(id, commentData);
-};
+const updateComment = async (id, commentData) =>
+  await CommentRepository.updateComment(id, commentData);
 
-const deleteComment = async (id) => {
-  return await CommentRepository.deleteComment(id);
-};
+const deleteComment = async (id) => await CommentRepository.deleteComment(id);
 
 const setCookies = (res, cookies) => {
   const maxAgeInMilliseconds = 1000 * 60 * 60 * 24 * 365 * 10;
@@ -44,7 +28,7 @@ const setCookies = (res, cookies) => {
     res.cookie(name, value, {
       maxAge: maxAgeInMilliseconds,
       httpOnly: true,
-      path: "/",
+      path: '/',
     });
   });
 };
