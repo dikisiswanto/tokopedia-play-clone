@@ -1,12 +1,12 @@
-const CommentService = require("../services/comment.service");
-const AvatarService = require("../services/avatar.service");
-const VideoService = require("../services/video.service");
-const { validationResult } = require("express-validator");
+const { validationResult } = require('express-validator');
+const CommentService = require('../services/comment.service');
+const AvatarService = require('../services/avatar.service');
+const VideoService = require('../services/video.service');
 const {
   handleServerError,
   handleResponse,
   handleClientError,
-} = require("../utilities/responseHandler");
+} = require('../utilities/responseHandler');
 
 const getComments = async (req, res) => {
   const errors = validationResult(req);
@@ -24,9 +24,9 @@ const getComments = async (req, res) => {
       beforeCommentId,
     });
 
-    handleResponse(res, 200, "Data retrieved successfully", comments);
+    return handleResponse(res, 200, 'Data retrieved successfully', comments);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -44,11 +44,7 @@ const getCommentsByVideoId = async (req, res) => {
     const video = await VideoService.getVideoById(videoId);
 
     if (!video) {
-      return handleClientError(
-        res,
-        404,
-        "videoId you provide doesn't match any record"
-      );
+      return handleClientError(res, 404, "videoId you provide doesn't match any record");
     }
 
     const comments = await CommentService.getComments({
@@ -58,9 +54,9 @@ const getCommentsByVideoId = async (req, res) => {
       beforeCommentId,
     });
 
-    handleResponse(res, 200, "Data retrieved successfully", comments);
+    return handleResponse(res, 200, 'Data retrieved successfully', comments);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -71,12 +67,12 @@ const getCommentById = async (req, res) => {
     const comment = await CommentService.getCommentById(commentId);
 
     if (!comment) {
-      return handleClientError(res, 404, "Comment not found");
+      return handleClientError(res, 404, 'Comment not found');
     }
 
-    handleResponse(res, 200, "Data retrieved successfully", comment);
+    return handleResponse(res, 200, 'Data retrieved successfully', comment);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -93,11 +89,7 @@ const createComment = async (req, res) => {
     const video = await VideoService.getVideoById(commentData.videoId);
 
     if (!video) {
-      return handleClientError(
-        res,
-        404,
-        "videoId you provide doesn't match any record"
-      );
+      return handleClientError(res, 404, "videoId you provide doesn't match any record");
     }
 
     if (!commentData.avatar) {
@@ -110,9 +102,9 @@ const createComment = async (req, res) => {
 
     CommentService.setCookies(res, cookiesToSet);
 
-    handleResponse(res, 201, "Data created successfully", createdComment);
+    return handleResponse(res, 201, 'Data created successfully', createdComment);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -130,25 +122,18 @@ const updateComment = async (req, res) => {
     const video = await VideoService.getVideoById(commentData.videoId);
 
     if (!video) {
-      return handleClientError(
-        res,
-        404,
-        "videoId you provide doesn't match any record"
-      );
+      return handleClientError(res, 404, "videoId you provide doesn't match any record");
     }
 
-    const updatedComment = await CommentService.updateComment(
-      commentId,
-      commentData
-    );
+    const updatedComment = await CommentService.updateComment(commentId, commentData);
 
     if (!updatedComment) {
-      return handleClientError(res, 404, "Comment not found");
+      return handleClientError(res, 404, 'Comment not found');
     }
 
-    handleResponse(res, 200, "Data updated successfully", updatedComment);
+    return handleResponse(res, 200, 'Data updated successfully', updatedComment);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -159,12 +144,12 @@ const deleteComment = async (req, res) => {
     const deletedcomment = await CommentService.deleteComment(commentId);
 
     if (!deletedcomment) {
-      return handleClientError(res, 404, "Comment not found");
+      return handleClientError(res, 404, 'Comment not found');
     }
 
-    handleResponse(res, 202, "Data deleted successfully", deletedcomment);
+    return handleResponse(res, 202, 'Data deleted successfully', deletedcomment);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 

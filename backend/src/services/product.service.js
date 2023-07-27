@@ -1,28 +1,18 @@
-const ProductRepository = require("../repositories/product.repository");
+const ProductRepository = require('../repositories/product.repository');
 
-const getProducts = async () => {
-  return await ProductRepository.getProducts();
-};
+const getProducts = async () => await ProductRepository.getProducts();
 
-const getProductById = async (id) => {
-  return await ProductRepository.getProductById(id);
-};
+const getProductById = async (id) => await ProductRepository.getProductById(id);
 
-const getProductsByVideoId = async (videoId) => {
-  return await ProductRepository.getProductsByVideoId(videoId);
-};
+const getProductsByVideoId = async (videoId) =>
+  await ProductRepository.getProductsByVideoId(videoId);
 
-const createProduct = async (productData) => {
-  return await ProductRepository.createProduct(productData);
-};
+const createProduct = async (productData) => await ProductRepository.createProduct(productData);
 
-const updateProduct = async (id, productData) => {
-  return await ProductRepository.updateProduct(id, productData);
-};
+const updateProduct = async (id, productData) =>
+  await ProductRepository.updateProduct(id, productData);
 
-const deleteProduct = async (id) => {
-  return await ProductRepository.deleteProduct(id);
-};
+const deleteProduct = async (id) => await ProductRepository.deleteProduct(id);
 
 module.exports = {
   getProducts,

@@ -1,11 +1,12 @@
-const VideoService = require("../services/video.service");
-const ChannelService = require("../services/channel.service");
-const { validationResult } = require("express-validator");
+/* eslint-disable camelcase */
+const { validationResult } = require('express-validator');
+const VideoService = require('../services/video.service');
+const ChannelService = require('../services/channel.service');
 const {
   handleServerError,
   handleResponse,
   handleClientError,
-} = require("../utilities/responseHandler");
+} = require('../utilities/responseHandler');
 
 const getVideos = async (req, res) => {
   const errors = validationResult(req);
@@ -27,16 +28,11 @@ const getVideos = async (req, res) => {
   const sort = { field: sort_by, order: sort_order };
 
   try {
-    const videos = await VideoService.getVideos(
-      query,
-      sort,
-      req.query.page,
-      req.query.limit
-    );
+    const videos = await VideoService.getVideos(query, sort, req.query.page, req.query.limit);
 
-    handleResponse(res, 200, "Data retrieved successfully", videos);
+    return handleResponse(res, 200, 'Data retrieved successfully', videos);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -47,34 +43,30 @@ const getVideoById = async (req, res) => {
     const video = await VideoService.getVideoById(videoId);
 
     if (!video) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, 'Video not found');
     }
 
-    handleResponse(res, 200, "Data retrieved successfully", video);
+    return handleResponse(res, 200, 'Data retrieved successfully', video);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
 const getVideosByChannelId = async (req, res) => {
-  const channelId = req.params.channelId;
+  const { channelId } = req.params;
 
   try {
     const channel = await ChannelService.getChannelById(channelId);
 
     if (!channel) {
-      return handleClientError(
-        res,
-        404,
-        "channelId you provide doesn't match any record"
-      );
+      return handleClientError(res, 404, "channelId you provide doesn't match any record");
     }
 
     const videos = await VideoService.getVideosByChannelId(channelId);
 
-    handleResponse(res, 200, "Data retrieved successfully", videos);
+    return handleResponse(res, 200, 'Data retrieved successfully', videos);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -91,17 +83,13 @@ const createVideo = async (req, res) => {
     const channel = await ChannelService.getChannelById(videoData.channelId);
 
     if (!channel) {
-      return handleClientError(
-        res,
-        404,
-        "channelId you provide doesn't match any record"
-      );
+      return handleClientError(res, 404, "channelId you provide doesn't match any record");
     }
 
     const createdVideo = await VideoService.createVideo(videoData);
-    handleResponse(res, 201, "Data created successfully", createdVideo);
+    return handleResponse(res, 201, 'Data created successfully', createdVideo);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -119,22 +107,18 @@ const updateVideo = async (req, res) => {
     const channel = await ChannelService.getChannelById(videoData.channelId);
 
     if (!channel) {
-      return handleClientError(
-        res,
-        404,
-        "channelId you provide doesn't match any record"
-      );
+      return handleClientError(res, 404, "channelId you provide doesn't match any record");
     }
 
     const updatedVideo = await VideoService.updateVideo(videoId, videoData);
 
     if (!updatedVideo) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, 'Video not found');
     }
 
-    handleResponse(res, 200, "Data updated successfully", updatedVideo);
+    return handleResponse(res, 200, 'Data updated successfully', updatedVideo);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -145,12 +129,12 @@ const deleteVideo = async (req, res) => {
     const deletedVideo = await VideoService.deleteVideo(videoId);
 
     if (!deletedVideo) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, 'Video not found');
     }
 
-    handleResponse(res, 202, "Data deleted successfully", deletedVideo);
+    return handleResponse(res, 202, 'Data deleted successfully', deletedVideo);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -161,13 +145,13 @@ const playVideo = async (req, res) => {
     const video = await VideoService.getVideoById(videoId);
 
     if (!video) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, 'Video not found');
     }
 
     await VideoService.updateViews(videoId);
-    handleResponse(res, 200, "Now playing the video", video);
+    return handleResponse(res, 200, 'Now playing the video', video);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 
@@ -180,15 +164,15 @@ const likeVideo = async (req, res) => {
     let video = await VideoService.getVideoById(videoId);
 
     if (!video) {
-      return handleClientError(res, 404, "Video not found");
+      return handleClientError(res, 404, 'Video not found');
     }
 
     if (video.likes?.includes(userIpAddress)) {
-      return handleClientError(res, 409, "You have already liked this video");
+      return handleClientError(res, 409, 'You have already liked this video');
     }
 
     if (userLikesCookie && userLikesCookie.includes(`video_likes_${videoId}`)) {
-      return handleClientError(res, 409, "You have already liked this video");
+      return handleClientError(res, 409, 'You have already liked this video');
     }
 
     const maxAgeInMilliseconds = 1000 * 60 * 60 * 24 * 365 * 10;
@@ -196,14 +180,14 @@ const likeVideo = async (req, res) => {
     res.cookie(`video_likes_${videoId}`, true, {
       maxAge: maxAgeInMilliseconds,
       httpOnly: true,
-      path: "/",
+      path: '/',
     });
 
     video = await VideoService.likeVideo(videoId, userIpAddress);
 
-    handleResponse(res, 200, "Video liked successfully!", video);
+    return handleResponse(res, 200, 'Video liked successfully!', video);
   } catch (error) {
-    handleServerError(res, error);
+    return handleServerError(res, error);
   }
 };
 

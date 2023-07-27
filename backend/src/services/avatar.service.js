@@ -1,14 +1,11 @@
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 const generateAvatar = (username, size = 0) => {
-  const avatarModel = ["identicon", "monsterid", "wavatar", "retro"];
+  const avatarModel = ['identicon', 'monsterid', 'wavatar', 'retro'];
   const avatarRandomIndex = Math.floor(Math.random() * avatarModel.length);
   const randomAvatarStyle = avatarModel[avatarRandomIndex];
 
-  const hashedUsername = crypto
-    .createHash("md5")
-    .update(username)
-    .digest("hex");
+  const hashedUsername = crypto.createHash('md5').update(username).digest('hex');
 
   let avatarUrl = `https://www.gravatar.com/avatar/${hashedUsername}?d=${randomAvatarStyle}`;
 

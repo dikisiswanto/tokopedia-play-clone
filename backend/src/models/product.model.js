@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema(
   {
@@ -8,13 +8,13 @@ const productSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     videoId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Video",
+      ref: 'Video',
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;

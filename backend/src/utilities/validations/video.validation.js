@@ -1,25 +1,25 @@
-const { checkSchema } = require("express-validator");
+const { checkSchema } = require('express-validator');
 
 const getVideos = checkSchema({
   query: {
     optional: true,
     trim: true,
     isString: {
-      errorMessage: "Query parameter must be a string",
+      errorMessage: 'Query parameter must be a string',
     },
   },
   sort_field: {
     optional: true,
     trim: true,
     isString: {
-      errorMessage: "Sort field must be a string",
+      errorMessage: 'Sort field must be a string',
     },
   },
   sort_order: {
     optional: true,
     trim: true,
     isIn: {
-      options: [["asc", "desc"]],
+      options: [['asc', 'desc']],
       errorMessage: "Sort order must be either 'asc' or 'desc'",
     },
   },
@@ -28,7 +28,7 @@ const getVideos = checkSchema({
     trim: true,
     isInt: {
       options: { min: 1 },
-      errorMessage: "Page number must be a positive integer",
+      errorMessage: 'Page number must be a positive integer',
     },
   },
   limit: {
@@ -36,56 +36,55 @@ const getVideos = checkSchema({
     trim: true,
     isInt: {
       options: { min: 1 },
-      errorMessage: "Limit value must be a positive integer",
+      errorMessage: 'Limit value must be a positive integer',
     },
   },
 });
 
 const postVideo = checkSchema({
   title: {
-    in: ["body"],
+    in: ['body'],
     trim: true,
     notEmpty: {
-      errorMessage: "Title is required",
+      errorMessage: 'Title is required',
     },
   },
   description: {
-    in: ["body"],
+    in: ['body'],
     optional: true,
     trim: true,
     isString: {
-      errorMessage: "Sort field must be a string",
+      errorMessage: 'Sort field must be a string',
     },
   },
   url: {
-    in: ["body"],
+    in: ['body'],
     trim: true,
     notEmpty: {
-      errorMessage: "URL is required",
+      errorMessage: 'URL is required',
     },
     isURL: {
-      errorMessage: "Invalid URL format",
+      errorMessage: 'Invalid URL format',
     },
   },
   thumbnail: {
-    in: ["body"],
+    in: ['body'],
     trim: true,
     notEmpty: {
-      errorMessage: "Thumbnail is required",
+      errorMessage: 'Thumbnail is required',
     },
     isURL: {
-      errorMessage: "Invalid thumbnail URL format",
+      errorMessage: 'Invalid thumbnail URL format',
     },
   },
   channelId: {
-    in: ["body"],
+    in: ['body'],
     trim: true,
     notEmpty: {
-      errorMessage: "Channel ID is required",
+      errorMessage: 'Channel ID is required',
     },
     isMongoId: {
-      errorMessage:
-        "Invalid channelId format. Please provide a valid MongoDB ObjectId.",
+      errorMessage: 'Invalid channelId format. Please provide a valid MongoDB ObjectId.',
     },
   },
 });

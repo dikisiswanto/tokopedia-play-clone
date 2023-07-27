@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { MONGO_URI } = require("./config");
+const mongoose = require('mongoose');
+const { MONGO_URI } = require('./config');
 
 const connectDatabase = async () => {
   try {
@@ -7,9 +7,9 @@ const connectDatabase = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("Connected to the database.");
+    console.log('Connected to the database.');
   } catch (error) {
-    console.error("Database connection failed:", error.message);
+    console.error('Database connection failed:', error.message);
     process.exit(1);
   }
 };
