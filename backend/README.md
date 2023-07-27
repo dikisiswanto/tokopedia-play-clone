@@ -140,6 +140,17 @@ Project Root
 
 ## How to Run
 
+Before you start, make sure your computer has the following required tools:
+
+```
+- Node.js and NPM
+- MongoDB
+- Git (for cloning the repository)
+- Text Editor or IDE of your choice (e.g., Visual Studio Code, Sublime Text)
+- Terminal or Command Prompt
+```
+Let started~
+
 1. **Clone the Repository**
    - Open your terminal or command prompt.
    - Change the working directory to the location where you want to store the project.
