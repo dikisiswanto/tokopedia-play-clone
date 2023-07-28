@@ -881,7 +881,7 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       - Code 404
       - Code 500
 
-8. **Like Specified Video**
+8. **Likes Specified Video**
    - Endpoint: `GET /videos/:id/like`
    - URL params:
       ```json
