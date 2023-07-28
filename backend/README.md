@@ -155,7 +155,7 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
 
 ```json
 {
-  "id": ObjectId,
+  "_id": ObjectId,
   "name": String,
   "username": String,
   "avatar": String,
@@ -295,7 +295,7 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
 <#commentObject>
 ```json
 {
-  "id": ObjectId,
+  "_id": ObjectId,
   "username": String,
   "fullname": String,
   "avatar": String,
@@ -487,7 +487,7 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
 <#productObject>
 ```json
 {
-  "id": ObjectId,
+  "_id": ObjectId,
   "url": String,
   "photos": Array of Strings,
   "title": String,
@@ -666,7 +666,7 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
 <#videoObject>
 ```json
 {
-  "id": ObjectId,
+  "_id": ObjectId,
   "title": String,
   "description": String,
   "url": String,
