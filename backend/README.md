@@ -859,6 +859,51 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
       - Code 404
       - Code 500
 
+7. **Increase Specified Video Views**
+   - Endpoint: `GET /videos/:id/play`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Now playing the video",
+      "data": {<video object>}
+     ```
+    - Error response:
+      - Code 404
+      - Code 500
+
+8. **Like Specified Video**
+   - Endpoint: `GET /videos/:id/like`
+   - URL params:
+      ```json
+      {
+        "id": ObjectId (required)
+      }
+      ```
+   - Query params: None
+   - Data params: None
+   - Success response:
+     ```json
+     {
+      "success": true,
+      "code": 200,
+      "message": "Now playing the video",
+      "data": {<video object>}
+     ```
+    - Error response:
+      - Code 409
+      - Code 404
+      - Code 500
+
 ## How to Run
 
 > Before you start, make sure your computer has the following required tools:
