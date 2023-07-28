@@ -896,7 +896,7 @@ The API endpoints are accessed by starting with `{BASE_URL}:{PORT}/api` as the B
      {
       "success": true,
       "code": 200,
-      "message": "Now playing the video",
+      "message": "Video liked successfully!",
       "data": {<video object>}
      ```
     - Error response:
