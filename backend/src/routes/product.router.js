@@ -1,10 +1,7 @@
-const express = require('express');
-
-const router = express.Router();
 const ProductController = require('../controllers/product.controller');
 const ProductValidator = require('../utilities/validations/product.validation');
 
-const productRoutes = [
+const routes = [
   {
     method: 'get',
     path: '/products',
@@ -39,13 +36,4 @@ const productRoutes = [
   },
 ];
 
-productRoutes.forEach((route) => {
-  const { method, path, validator, handler } = route;
-  if (validator) {
-    router[method](path, validator, handler);
-  } else {
-    router[method](path, handler);
-  }
-});
-
-module.exports = router;
+module.exports = routes;

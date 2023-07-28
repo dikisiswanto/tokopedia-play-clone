@@ -8,16 +8,9 @@ connectDatabase();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const channelRoutes = require('./routes/channel.router');
-const productRoutes = require('./routes/product.router');
-const commentRoutes = require('./routes/comment.router');
-const videoRoutes = require('./routes/video.router');
+const routes = require('./routes');
 
-const routes = [channelRoutes, productRoutes, commentRoutes, videoRoutes];
-
-routes.forEach((route) => {
-  app.use('/api', route);
-});
+app.use('/api', routes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

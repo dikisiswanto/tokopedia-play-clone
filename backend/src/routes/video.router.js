@@ -1,10 +1,7 @@
-const express = require('express');
-
-const router = express.Router();
 const VideoController = require('../controllers/video.controller');
 const VideoValidator = require('../utilities/validations/video.validation');
 
-const videoRoutes = [
+const routes = [
   {
     method: 'get',
     path: '/videos',
@@ -50,13 +47,4 @@ const videoRoutes = [
   },
 ];
 
-videoRoutes.forEach((route) => {
-  const { method, path, validator, handler } = route;
-  if (validator) {
-    router[method](path, validator, handler);
-  } else {
-    router[method](path, handler);
-  }
-});
-
-module.exports = router;
+module.exports = routes;

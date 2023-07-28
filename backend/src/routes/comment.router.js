@@ -1,10 +1,7 @@
-const express = require('express');
-
-const router = express.Router();
 const CommentController = require('../controllers/comment.controller');
 const CommentValidator = require('../utilities/validations/comment.validation');
 
-const commentRoutes = [
+const routes = [
   {
     method: 'get',
     path: '/comments',
@@ -41,13 +38,4 @@ const commentRoutes = [
   },
 ];
 
-commentRoutes.forEach((route) => {
-  const { method, path, validator, handler } = route;
-  if (validator) {
-    router[method](path, validator, handler);
-  } else {
-    router[method](path, handler);
-  }
-});
-
-module.exports = router;
+module.exports = routes;
