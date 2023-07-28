@@ -97,10 +97,8 @@ const createComment = async (req, res) => {
     }
 
     const createdComment = await CommentService.createComment(commentData);
-    const { username, fullname, avatar } = commentData;
-    const cookiesToSet = { username, fullname, avatar };
 
-    CommentService.setCookies(res, cookiesToSet);
+    CommentService.setUserSession(res, commentData);
 
     return handleResponse(res, 201, 'Data created successfully', createdComment);
   } catch (error) {

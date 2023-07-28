@@ -1,4 +1,5 @@
 const CommentRepository = require('../repositories/comment.repository');
+const { setCookies } = require('../utilities/helper');
 
 const getComments = async ({ videoId = null, page = 1, limit = 10, beforeCommentId } = {}) => {
   let comments;
@@ -21,16 +22,11 @@ const updateComment = async (id, commentData) =>
 
 const deleteComment = async (id) => await CommentRepository.deleteComment(id);
 
-const setCookies = (res, cookies) => {
-  const maxAgeInMilliseconds = 1000 * 60 * 60 * 24 * 365 * 10;
+const setUserSession = (res, commentData) => {
+  const { fullname, username, avatar } = commentData;
+  const userSession = { fullname, username, avatar };
 
-  Object.entries(cookies).forEach(([name, value]) => {
-    res.cookie(name, value, {
-      maxAge: maxAgeInMilliseconds,
-      httpOnly: true,
-      path: '/',
-    });
-  });
+  setCookies(res, userSession);
 };
 
 module.exports = {
@@ -39,5 +35,5 @@ module.exports = {
   createComment,
   updateComment,
   deleteComment,
-  setCookies,
+  setUserSession,
 };

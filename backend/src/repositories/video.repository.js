@@ -42,14 +42,7 @@ const getUserLikesCount = async (id) => {
   return video.likes.length;
 };
 
-const getVideoById = async (id) => {
-  const video = await Video.findById(id).populate('channelId').exec();
-  if (!video) {
-    return video;
-  }
-  const totalLikes = await getUserLikesCount(id);
-  return { video, totalLikes };
-};
+const getVideoById = async (id) => await Video.findById(id).populate('channelId').exec();
 
 const getVideosByChannelId = async (channelId) => {
   const videos = await Video.find({ channelId });

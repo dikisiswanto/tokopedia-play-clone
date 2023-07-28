@@ -1,4 +1,5 @@
 const VideoRepository = require('../repositories/video.repository');
+const { setCookies } = require('../utilities/helper');
 
 const getVideos = async (query, sort, page, limit) =>
   await VideoRepository.getVideos(query, sort, page, limit);
@@ -20,6 +21,13 @@ const updateViews = async (id) => await VideoRepository.updateVideoViews(id);
 
 const getUserLikesCount = async (id) => await VideoRepository.getUserLikesCount(id);
 
+const setVideoLiked = (res, id) => {
+  const cookiesToSet = {};
+  cookiesToSet[`video_likes_${id}`] = true;
+
+  return setCookies(res, cookiesToSet);
+};
+
 module.exports = {
   getVideos,
   getVideoById,
@@ -30,4 +38,5 @@ module.exports = {
   updateViews,
   deleteVideo,
   likeVideo,
+  setVideoLiked,
 };
