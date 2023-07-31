@@ -98,7 +98,7 @@ const createComment = async (req, res) => {
 
     const createdComment = await CommentService.createComment(commentData);
 
-    CommentService.setUserSession(res, commentData);
+    CommentService.setUserSession(req, res, commentData);
 
     return handleResponse(res, 201, 'Data created successfully', createdComment);
   } catch (error) {

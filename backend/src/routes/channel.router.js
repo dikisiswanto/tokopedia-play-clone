@@ -3,30 +3,35 @@ const ChannelValidator = require('../utilities/validations/channel.validation');
 
 const routes = [
   {
-    path: '/channels',
     method: 'get',
+    path: '/channels',
+    isPrivate: false,
     handler: ChannelController.getChannels,
   },
   {
-    path: '/channels/:id',
     method: 'get',
+    path: '/channels/:id',
+    isPrivate: false,
     handler: ChannelController.getChannelById,
   },
   {
-    path: '/channels',
     method: 'post',
+    path: '/channels',
+    isPrivate: true,
     validator: ChannelValidator.postChannel,
     handler: ChannelController.createChannel,
   },
   {
-    path: '/channels/:id',
     method: 'put',
+    path: '/channels/:id',
+    isPrivate: true,
     validator: ChannelValidator.postChannel,
     handler: ChannelController.updateChannel,
   },
   {
-    path: '/channels/:id',
     method: 'delete',
+    path: '/channels/:id',
+    isPrivate: true,
     handler: ChannelController.deleteChannel,
   },
 ];

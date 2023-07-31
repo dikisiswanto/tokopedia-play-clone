@@ -4,4 +4,5 @@ dotenv.config();
 
 module.exports = {
   MONGO_URI: process.env.MONGO_URI,
+  SESSION_SECRET_KEY: process.env.SESSION_SECRET_KEY,
 };

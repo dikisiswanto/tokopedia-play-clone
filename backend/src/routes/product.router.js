@@ -5,33 +5,39 @@ const routes = [
   {
     method: 'get',
     path: '/products',
+    isPrivate: false,
     handler: ProductController.getProducts,
   },
   {
     method: 'get',
     path: '/products/:id',
+    isPrivate: false,
     handler: ProductController.getProductById,
   },
   {
     method: 'post',
     path: '/products',
+    isPrivate: true,
     validator: ProductValidator.postProduct,
     handler: ProductController.createProduct,
   },
   {
-    path: '/products/:id',
     method: 'put',
+    path: '/products/:id',
+    isPrivate: true,
     validator: ProductValidator.postProduct,
     handler: ProductController.updateProduct,
   },
   {
-    path: '/products/:id',
     method: 'delete',
+    path: '/products/:id',
+    isPrivate: true,
     handler: ProductController.deleteProduct,
   },
   {
     method: 'get',
     path: '/videos/:videoId/products',
+    isPrivate: false,
     handler: ProductController.getProductsByVideoId,
   },
 ];

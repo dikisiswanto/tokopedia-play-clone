@@ -5,16 +5,21 @@ const channelRoutes = require('./channel.router');
 const productRoutes = require('./product.router');
 const commentRoutes = require('./comment.router');
 const videoRoutes = require('./video.router');
+const authenticationMiddleware = require('../utilities/middlewares/auth.middleware');
 
 const routes = [...channelRoutes, ...productRoutes, ...commentRoutes, ...videoRoutes];
 
 routes.forEach((route) => {
-  const { method, path, validator, handler } = route;
-  if (validator) {
-    router[method](path, validator, handler);
-  } else {
-    router[method](path, handler);
+  const { method, path, isPrivate, validator, handler } = route;
+  const middlewares = [];
+  if (isPrivate) {
+    middlewares.push(authenticationMiddleware);
   }
+  if (validator) {
+    middlewares.push(validator);
+  }
+
+  router[method](path, middlewares, handler);
 });
 
 module.exports = router;

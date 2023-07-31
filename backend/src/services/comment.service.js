@@ -22,10 +22,11 @@ const updateComment = async (id, commentData) =>
 
 const deleteComment = async (id) => await CommentRepository.deleteComment(id);
 
-const setUserSession = (res, commentData) => {
+const setUserSession = (req, res, commentData) => {
   const { fullname, username, avatar } = commentData;
   const userSession = { fullname, username, avatar };
 
+  req.session.username = username;
   setCookies(res, userSession);
 };
 

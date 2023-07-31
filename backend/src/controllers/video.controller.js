@@ -158,7 +158,7 @@ const playVideo = async (req, res) => {
 const likeVideo = async (req, res) => {
   const videoId = req.params.id;
   const userIpAddress = req.ip;
-  const userLikesCookie = req.headers.cookie;
+  const userLikesCookie = req.cookies;
 
   try {
     let video = await VideoService.getVideoById(videoId);
