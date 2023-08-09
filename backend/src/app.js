@@ -3,6 +3,8 @@ const session = require('express-session');
 const csurf = require('csurf');
 const cors = require('cors');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 const { SESSION_SECRET_KEY } = require('./config');
 
 const app = express();
@@ -12,6 +14,7 @@ connectDatabase();
 
 app.use(cors());
 app.use(morgan('combined'));
+app.use(helmet());
 app.use(
   session({
     secret: SESSION_SECRET_KEY,
@@ -24,8 +27,9 @@ app.use(
     },
   }),
 );
+app.use(cookieParser());
 
-app.use(csurf({ ignoreMethods: ['GET', 'DELETE'] }));
+app.use(csurf({ cookie: true, ignoreMethods: ['GET', 'DELETE'] }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +38,7 @@ const routes = require('./routes');
 const { handleClientError } = require('./utilities/responseHandler');
 
 app.use('/api', routes);
+app.use((req, res) => handleClientError(res, 404, 'Route not found'));
 
 app.use((err, req, res, next) => {
   if (err.code === 'EBADCSRFTOKEN') {
@@ -44,8 +49,6 @@ app.use((err, req, res, next) => {
 
   return null;
 });
-
-app.use((req, res) => handleClientError(res, 404, 'Route not found'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

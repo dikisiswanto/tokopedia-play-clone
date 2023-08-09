@@ -13,17 +13,50 @@ const getVideos = async (query, sort, page = 0, limit = 0) => {
   }
 
   if (field) {
-    sortQuery[field] = order === 'desc' ? -1 : 1;
+    const fieldQuery = field === 'likes' ? 'likesCount' : field;
+    sortQuery[fieldQuery] = order === 'desc' ? -1 : 1;
   }
 
   const skip = page && limit ? (page - 1) * limit : page;
 
-  const videos = await Video.find(filter)
-    .populate('channelId')
-    .sort(sortQuery)
-    .skip(skip)
-    .limit(limit)
-    .exec();
+  const aggregationPipeline = [
+    {
+      $match: filter,
+    },
+    {
+      $lookup: {
+        from: 'channel',
+        localField: 'channelId',
+        foreignField: '_id',
+        as: 'channel',
+      },
+    },
+    {
+      $unwind: '$channel',
+    },
+    {
+      $addFields: {
+        likesCount: { $size: '$likes' },
+      },
+    },
+    {
+      $sort: sortQuery,
+    },
+    {
+      $skip: skip,
+    },
+    {
+      $project: {
+        likes: 0,
+      },
+    },
+  ];
+
+  if (limit > 0) {
+    aggregationPipeline.push({ $limit: limit });
+  }
+
+  const videos = await Video.aggregate(aggregationPipeline).exec();
 
   const totalVideos = await Video.countDocuments(filter);
 

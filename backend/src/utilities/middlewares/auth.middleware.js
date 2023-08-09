@@ -3,16 +3,15 @@ const jwt = require('jsonwebtoken');
 const { SESSION_SECRET_KEY } = require('../../config');
 const { handleClientError } = require('../responseHandler');
 
-const jwtSecretKey = SESSION_SECRET_KEY;
-
 function authenticateToken(req, res, next) {
-  const token = req.header('Authorization');
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
     return handleClientError(res, 401, 'Authorization token not provided');
   }
 
-  jwt.verify(token, jwtSecretKey, (err, user) => {
+  jwt.verify(token, SESSION_SECRET_KEY, (err, user) => {
     if (err) {
       return handleClientError(res, 401, 'Token is not valid');
     }

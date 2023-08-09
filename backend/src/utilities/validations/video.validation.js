@@ -8,11 +8,15 @@ const getVideos = checkSchema({
       errorMessage: 'Query parameter must be a string',
     },
   },
-  sort_field: {
+  sort_by: {
     optional: true,
     trim: true,
     isString: {
       errorMessage: 'Sort field must be a string',
+    },
+    isIn: {
+      options: [['views', 'likes', 'title']],
+      errorMessage: "Sort field must be 'views', 'likes,' or 'title'",
     },
   },
   sort_order: {
