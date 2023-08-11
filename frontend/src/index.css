@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .hide-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: var(--secondary) var(--primary);

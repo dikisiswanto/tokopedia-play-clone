@@ -7,7 +7,7 @@ export const getVideos = async ({ sortField, page, limit, query }) => {
       params: {
         sort_by: sortField,
         page,
-        limit
+        limit,
       },
     };
 
@@ -29,7 +29,7 @@ export const getVideoById = async (id) => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
 
 export const updateVideoViews = async (id) => {
   try {
@@ -38,7 +38,7 @@ export const updateVideoViews = async (id) => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
 
 export const updateVideoLikes = async (videoId) => {
   try {
@@ -47,13 +47,15 @@ export const updateVideoLikes = async (videoId) => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
 
 export const getProducts = async (videoId) => {
   try {
-    const {data} = await axios.get(`${BASE_API_URL}/videos/${videoId}/products`);
+    const { data } = await axios.get(
+      `${BASE_API_URL}/videos/${videoId}/products`
+    );
     return data;
   } catch (error) {
     throw new Error(error);
   }
-}
+};

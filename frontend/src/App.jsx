@@ -10,7 +10,7 @@ function App() {
         <div className="container max-w-6xl mx-auto w-full px-3 flex flex-col min-h-screen">
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Home/>}></Route>
+              <Route path="/" element={<Home />}></Route>
               <Route path="/video/:videoId" element={<Detail />}></Route>
             </Routes>
           </BrowserRouter>

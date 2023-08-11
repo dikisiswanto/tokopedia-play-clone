@@ -1,4 +1,4 @@
-export const BASE_API_URL = 'http://localhost:3000/api';
+export const BASE_API_URL = "http://localhost:3000/api";
 export const tabs = [
   {
     id: 0,
@@ -13,6 +13,6 @@ export const tabs = [
   {
     id: 2,
     key: "likes",
-    name: "💖 Terfavorit"
-  }
+    name: "💖 Terfavorit",
+  },
 ];

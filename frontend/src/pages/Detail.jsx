@@ -4,7 +4,12 @@ import ProductCard from "@/components/section/ProductCard";
 import { toast } from "@/components/ui/use-toast";
 import VideoDetail from "@/components/section/VideoDetail";
 import { Button } from "@/components/ui/Button";
-import { getProducts, getVideoById, updateVideoLikes, updateVideoViews } from "@/services/videoService";
+import {
+  getProducts,
+  getVideoById,
+  updateVideoLikes,
+  updateVideoViews,
+} from "@/services/videoService";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ThumbsUpIcon } from "lucide-react";
@@ -32,7 +37,7 @@ export default function Detail() {
     } catch (error) {
       setError(error.message);
     }
-  }
+  };
 
   const likeVideo = async () => {
     try {
@@ -41,21 +46,21 @@ export default function Detail() {
     } catch (error) {
       setError("Anda sudah menyukai video ini");
     }
-  }
+  };
 
   const handleLikeVideo = () => {
-    setError('');
+    setError("");
     likeVideo();
-  }
+  };
 
   const getAllProducts = async () => {
     try {
       const { data } = await getProducts(videoId);
       setProducts(data.products);
     } catch (error) {
-      setError(error.message)
+      setError(error.message);
     }
-  }
+  };
 
   useEffect(() => {
     getVideo();
@@ -66,7 +71,7 @@ export default function Detail() {
         title: "Terjadi kesalahan",
         description: error,
         variant: "destructive",
-      })
+      });
     }
   }, [videoId, error]);
 
@@ -85,14 +90,22 @@ export default function Detail() {
             </div>
             <div className="absolute top-1/2 transform -translate-y-1/2 right-0 overflow-auto touch-pan-y gap-2 flex-nowrap lg:flex flex-col snap-x hide-scrollbar hidden h-[60%] z-10">
               {products.map((product) => (
-                <ProductCard key={product._id} product={product} className="w-24" />
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  className="w-24"
+                />
               ))}
             </div>
           </div>
           <div className="lg:w-1/3 w-full space-y-2">
             <VideoDetail video={video}>
-              <Button className="inline-flex items-center" variant="greeny" onClick={() => handleLikeVideo()}>
-                <ThumbsUpIcon size={16}/>
+              <Button
+                className="inline-flex items-center"
+                variant="greeny"
+                onClick={() => handleLikeVideo()}
+              >
+                <ThumbsUpIcon size={16} />
                 <span className="ml-1">{videoLikesCount}</span>
               </Button>
             </VideoDetail>
