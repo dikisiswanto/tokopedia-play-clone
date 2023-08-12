@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { EyeIcon } from "lucide-react";
+import { simplifyNumber } from "@/lib/utils";
 
 export default function VideoCard({ data }) {
   return (
@@ -20,7 +21,8 @@ export default function VideoCard({ data }) {
         className="w-full lg:h-96 md:h-80 h-64 object-cover object-center"
       />
       <span className="bg-slate-700/70 absolute top-0 inline-block px-2 py-1 text-xs ml-3 mt-3 rounded font-medium">
-        <EyeIcon className={"h-4 w-4 mr-0.5 inline-block"} /> {data.views}
+        <EyeIcon className={"h-4 w-4 mr-0.5 inline-block"} />{" "}
+        {simplifyNumber(data.views)}
       </span>
 
       <div className="absolute bottom-0 left-0 pt-12 pb-3 px-3 bg-gradient-to-b from-transparent to-slate-900/90 space-y-1.5 w-full">

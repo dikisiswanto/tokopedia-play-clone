@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Header from "@/components/section/Header";
 import ProductCard from "@/components/section/ProductCard";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/useToast";
 import VideoDetail from "@/components/section/VideoDetail";
 import { Button } from "@/components/ui/Button";
 import {
@@ -12,14 +12,44 @@ import {
 } from "@/services/videoService";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ThumbsUpIcon } from "lucide-react";
+import { MessagesSquare, ThumbsUpIcon } from "lucide-react";
+import CommentForm from "@/components/section/CommentForm";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { getComments, postComment } from "@/services/commentService";
+import useSession from "@/hooks/useSession";
+import { isObjectEmpty } from "@/lib/utils";
+import UserInfo from "@/components/section/UserInfo";
+import CommentItem from "@/components/section/CommentItem";
+import useSocket from "@/hooks/useSocket";
 
 export default function Detail() {
   const { videoId } = useParams();
   const [video, setVideo] = useState({});
-  const [error, setError] = useState("");
+  const [notification, setNotification] = useState({});
   const [products, setProducts] = useState([]);
   const [videoLikesCount, setVideoLikesCount] = useState(0);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [session, setSession] = useSession();
+  const { comments, setInitialComments, sendComment } = useSocket();
+
+  const handleErrorResponse = (
+    error,
+    title = "Oops...",
+    codeThreshold = 500
+  ) => {
+    const type = error.code >= codeThreshold ? "destructive" : "default";
+    return {
+      title,
+      type,
+      message: error.response?.data?.error || error.message,
+    };
+  };
 
   const getVideo = async () => {
     try {
@@ -27,7 +57,7 @@ export default function Detail() {
       setVideo(data);
       setVideoLikesCount(data.likesCount);
     } catch (error) {
-      setError(error.message);
+      setNotification(handleErrorResponse(error));
     }
   };
 
@@ -35,7 +65,7 @@ export default function Detail() {
     try {
       await updateVideoViews(videoId);
     } catch (error) {
-      setError(error.message);
+      setNotification(handleErrorResponse(error));
     }
   };
 
@@ -44,12 +74,11 @@ export default function Detail() {
       await updateVideoLikes(videoId);
       setVideoLikesCount((prev) => prev + 1);
     } catch (error) {
-      setError("Anda sudah menyukai video ini");
+      setNotification(handleErrorResponse(error));
     }
   };
 
   const handleLikeVideo = () => {
-    setError("");
     likeVideo();
   };
 
@@ -58,28 +87,77 @@ export default function Detail() {
       const { data } = await getProducts(videoId);
       setProducts(data.products);
     } catch (error) {
-      setError(error.message);
+      setNotification(handleErrorResponse(error));
     }
+  };
+
+  const getInitialComments = async () => {
+    try {
+      const { data } = await getComments(videoId);
+      setInitialComments(data.comments);
+    } catch (error) {
+      setNotification(handleErrorResponse(error));
+    }
+  };
+
+  const submitComment = async (commentData) => {
+    try {
+      const { data, message } = await postComment({ videoId, ...commentData });
+
+      sendComment(data);
+      setSheetOpen(false);
+
+      setNotification({
+        title: "Info",
+        type: "default",
+        message,
+      });
+
+      const { username, avatar, fullname } = data;
+
+      setSession({ username, avatar, fullname });
+    } catch (error) {
+      setNotification({
+        type: "destructive",
+        message: error.message,
+      });
+    }
+  };
+
+  const handleComment = (data) => {
+    const commentData = { ...data, ...session };
+    submitComment(commentData);
   };
 
   useEffect(() => {
     getVideo();
     updateView();
     getAllProducts();
-    if (error) {
+    getInitialComments();
+  }, [videoId]);
+
+  useEffect(() => {
+    if (notification.message) {
       toast({
-        title: "Terjadi kesalahan",
-        description: error,
-        variant: "destructive",
+        title: notification.title,
+        description: notification.message,
+        variant: notification.type,
       });
     }
-  }, [videoId, error]);
+  }, [notification]);
 
   return (
     <>
-      <Header />
-      {video && (
-        <div className="flex flex-col lg:flex-row items-start lg:justify-between gap-4 flex-1">
+      <Header>
+        {!isObjectEmpty(session) && (
+          <UserInfo
+            session={session}
+            className="rounded-full px-3 py-1 bg-slate-900 text-sm"
+          />
+        )}
+      </Header>
+      {!isObjectEmpty(video) && (
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-4 flex-1">
           <div className="group lg:w-2/3 relative bg-slate-700 h-0 pb-[56.25%] overflow-hidden">
             <iframe
               src={`${video.url}?controls=0&autoplay=1&loop=1&rel=0`}
@@ -88,7 +166,7 @@ export default function Detail() {
             <div className="w-full absolute top-0 z-10 px-1.5 py-1 lg:px-5 lg:py-4 flex justify-between items-center lg:items-start bg-black">
               <p className="line-clamp-1 lg:line-clamp-2">{video.title}</p>
             </div>
-            <div className="absolute top-1/2 transform -translate-y-1/2 right-0 overflow-auto touch-pan-y gap-2 flex-nowrap lg:flex flex-col snap-x hide-scrollbar hidden h-[60%] z-10">
+            <div className="absolute top-1/2 transform -translate-y-1/2 right-0 overflow-auto touch-pan-y gap-2 flex-nowrap lg:flex flex-col snap-y hide-scrollbar hidden h-[65%] z-10">
               {products.map((product) => (
                 <ProductCard
                   key={product._id}
@@ -98,10 +176,10 @@ export default function Detail() {
               ))}
             </div>
           </div>
-          <div className="lg:w-1/3 w-full space-y-2">
+          <div className="lg:w-1/3 w-full space-y-2 relative">
             <VideoDetail video={video}>
               <Button
-                className="inline-flex items-center"
+                className="inline-flex items-center py-0.5 px-3"
                 variant="greeny"
                 onClick={() => handleLikeVideo()}
               >
@@ -112,6 +190,32 @@ export default function Detail() {
             <div className="overflow-auto touch-pan-x gap-4 flex-nowrap flex snap-x hide-scrollbar lg:hidden pt-2">
               {products.map((product) => (
                 <ProductCard key={product._id} product={product} />
+              ))}
+            </div>
+
+            <h3 className="font-semibold py-3">
+              <MessagesSquare size={20} className="inline-block mr-1" />{" "}
+              Comments
+            </h3>
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild>
+                <Button className="block w-full">Post comment</Button>
+              </SheetTrigger>
+              <SheetContent
+                side="bottom"
+                className="bg-slate-700 text-slate-50 border-t-0 mr-auto"
+              >
+                <SheetHeader>
+                  <SheetTitle className="text-white font-bold">
+                    Post comment
+                  </SheetTitle>
+                </SheetHeader>
+                <CommentForm onSubmit={handleComment} />
+              </SheetContent>
+            </Sheet>
+            <div className="h-56 pb-5 overflow-auto space-y-1">
+              {comments.map((comment) => (
+                <CommentItem key={comment._id} comment={comment} />
               ))}
             </div>
           </div>

@@ -13,8 +13,12 @@ export default function SearchForm({ onSubmit }) {
           name="q"
           render={({ field }) => (
             <FormItem className="relative">
-              <FormControl className="bg-slate-700 border outline-0 border-slate-600 focus-visible:border-green-500">
-                <Input placeholder="Cari video" autoComplete="off" {...field} />
+              <FormControl className="bg-slate-700 border outline-0 border-slate-600">
+                <Input
+                  placeholder="Search video"
+                  autoComplete="off"
+                  {...field}
+                />
               </FormControl>
               <SearchIcon
                 className="absolute top-1 right-0 mr-3 transform text-slate-400"

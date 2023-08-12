@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/Tabs";
 import VideoCard from "@/components/section/VideoCard";
 import { tabs } from "@/lib/config";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/useToast";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PlayCircleIcon } from "lucide-react";
 import { getVideos } from "@/services/videoService";
@@ -21,8 +21,8 @@ export default function Home() {
   const { toast } = useToast();
 
   const resetState = () => {
-    setVideos([]);
     setPage(1);
+    setVideos([]);
     setError("");
     setHasMore(true);
     setSearchKeyword("");
@@ -30,8 +30,8 @@ export default function Home() {
   };
 
   const handleChangeTab = (tabName) => {
-    setActiveTab(tabName);
     resetState();
+    setActiveTab(tabName);
   };
 
   const handleSubmit = (event) => {
@@ -49,27 +49,39 @@ export default function Home() {
         limit: 10,
         query: searchKeyword,
       });
-      setVideos((prevData) => [...prevData, ...data.videos]);
+
+      if (page === 1) {
+        setVideos(data.videos);
+      } else {
+        setVideos((prevData) => [...prevData, ...data.videos]);
+      }
+
       setPage((prevPage) => prevPage + 1);
       setHasMore(data.videos?.length > 0);
       setLoading(false);
     } catch (error) {
       resetState();
-      setError("Gagal mengambil data, coba kembali beberapa saat.");
+      setError(error.response?.data?.error || error.message);
     }
   }, [activeTab, page]);
 
   useEffect(() => {
     setLoading(true);
     fetchData();
+    return () => {
+      resetState();
+    };
+  }, [activeTab, searchKeyword]);
+
+  useEffect(() => {
     if (error) {
       toast({
-        title: "Terjadi kesalahan",
+        title: "Oops...",
         description: error,
         variant: "destructive",
       });
     }
-  }, [activeTab, searchKeyword, error]);
+  }, [error]);
 
   return (
     <>
