@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { PlayCircleIcon } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Header from '@/components/section/Header';
@@ -86,6 +87,9 @@ export default function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>Tokopedia Play Clone</title>
+      </Helmet>
       <Header>
         <SearchForm onSubmit={handleSubmit} />
       </Header>

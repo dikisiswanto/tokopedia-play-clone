@@ -21,5 +21,6 @@ module.exports = {
     'import/order': 'off',
     'simple-import-sort/imports': 'error',
     'prettier/prettier': 'error',
+    'react/jsx-uses-vars': 'error',
   },
 }
