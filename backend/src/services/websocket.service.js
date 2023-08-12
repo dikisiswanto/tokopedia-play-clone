@@ -5,8 +5,6 @@ let ioServer;
 const setupSocket = (server) => {
   try {
     const io = socketIo(server, {
-      pingInterval: 10000, // Send a ping every 10 seconds
-      pingTimeout: 5000, // Disconnect if no response in 5 seconds
       cors: {
         origin: '*',
         method: ['GET', 'POST'],
