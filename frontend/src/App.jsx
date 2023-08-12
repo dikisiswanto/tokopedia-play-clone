@@ -1,7 +1,8 @@
-import Home from "@/pages/Home";
-import Detail from "@/pages/Detail";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Toaster } from "@/components/ui/Toaster";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { Toaster } from '@/components/ui/Toaster';
+import Detail from '@/pages/Detail';
+import Home from '@/pages/Home';
 
 function App() {
   return (

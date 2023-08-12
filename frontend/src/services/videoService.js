@@ -1,5 +1,6 @@
-import { BASE_API_URL } from "@/lib/config";
-import axios from "axios";
+import axios from 'axios';
+
+import { BASE_API_URL } from '@/lib/config';
 
 export const getVideos = async ({ sortField, page, limit, query }) => {
   const configs = {
@@ -34,8 +35,6 @@ export const updateVideoLikes = async (videoId) => {
 };
 
 export const getProducts = async (videoId) => {
-  const { data } = await axios.get(
-    `${BASE_API_URL}/videos/${videoId}/products`
-  );
+  const { data } = await axios.get(`${BASE_API_URL}/videos/${videoId}/products`);
   return data;
 };

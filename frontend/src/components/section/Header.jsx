@@ -1,5 +1,6 @@
-import { NavLink } from "react-router-dom";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
+import { NavLink } from 'react-router-dom';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 
 export default function Header({ children }) {
   return (
@@ -16,9 +17,7 @@ export default function Header({ children }) {
           ></AvatarImage>
           <AvatarFallback>TP</AvatarFallback>
         </Avatar>
-        <h1 className="font-semibold text-xl tracking-wider">
-          Tokopedia Play Clone
-        </h1>
+        <h1 className="font-semibold text-xl tracking-wider">Tokopedia Play Clone</h1>
       </NavLink>
       {children}
     </header>

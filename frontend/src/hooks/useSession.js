@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Cookies from "js-cookie";
-import { useState, useEffect } from "react";
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 function useSession() {
-  const sessionKeys = ["username", "avatar", "fullname"];
+  const sessionKeys = ['username', 'avatar', 'fullname'];
   const [session, setSessionValue] = useState({});
 
   useEffect(() => {

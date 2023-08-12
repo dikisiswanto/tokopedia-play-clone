@@ -1,6 +1,7 @@
-import { formatDate, simplifyNumber } from "@/lib/utils";
-import { CalendarIcon, EyeIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
+import { CalendarIcon, EyeIcon } from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
+import { formatDate, simplifyNumber } from '@/lib/utils';
 
 export default function VideoDetail({ video, children }) {
   return (
@@ -15,9 +16,7 @@ export default function VideoDetail({ video, children }) {
             ></AvatarImage>
             <AvatarFallback>{video.channelId?.name?.charAt(0)}</AvatarFallback>
           </Avatar>
-          <p className="text-sm font-medium line-clamp-1">
-            {video.channelId?.name}
-          </p>
+          <p className="text-sm font-medium line-clamp-1">{video.channelId?.name}</p>
         </div>
         {children}
       </div>

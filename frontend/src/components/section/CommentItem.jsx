@@ -1,5 +1,5 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
-import { convertToLocalTime } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
+import { convertToLocalTime } from '@/lib/utils';
 
 export default function CommentItem({ comment }) {
   return (
@@ -12,9 +12,7 @@ export default function CommentItem({ comment }) {
         <AvatarFallback>{comment?.fullname?.charAt(0)}</AvatarFallback>
       </Avatar>
       <div className="rounded-tr-xl rounded-b-xl bg-slate-700/60 w-full py-1.5 px-2">
-        <span className="font-semibold text-slate-100 text-xs block">
-          {comment.fullname}
-        </span>
+        <span className="font-semibold text-slate-100 text-xs block">{comment.fullname}</span>
         <span className="text-slate-200 text-[0.65rem] block">
           {convertToLocalTime(comment.createdAt)}
         </span>

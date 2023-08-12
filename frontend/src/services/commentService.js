@@ -1,11 +1,10 @@
-import { BASE_API_URL } from "@/lib/config";
-import { generateUsername } from "@/lib/utils";
-import axios from "axios";
+import axios from 'axios';
+
+import { BASE_API_URL } from '@/lib/config';
+import { generateUsername } from '@/lib/utils';
 
 export const getComments = async (videoId) => {
-  const { data } = await axios.get(
-    `${BASE_API_URL}/videos/${videoId}/comments`
-  );
+  const { data } = await axios.get(`${BASE_API_URL}/videos/${videoId}/comments`);
   return data;
 };
 

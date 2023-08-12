@@ -1,4 +1,4 @@
-import { cn, currencyFormatter } from "@/lib/utils";
+import { cn, currencyFormatter } from '@/lib/utils';
 
 export default function ProductCard({ product, className }) {
   return (
@@ -7,8 +7,8 @@ export default function ProductCard({ product, className }) {
       rel="noopener noreferrer nofollow"
       target="_blank"
       className={cn(
-        "shadow rounded-lg overflow-hidden bg-white w-32 text-slate-900 inline-block flex-shrink-0 snap-center",
-        className
+        'shadow rounded-lg overflow-hidden bg-white w-32 text-slate-900 inline-block flex-shrink-0 snap-center',
+        className,
       )}
     >
       <img src={product.photos[0]} alt={product.title} className="" />

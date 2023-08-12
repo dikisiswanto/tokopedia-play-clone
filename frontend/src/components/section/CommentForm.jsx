@@ -1,3 +1,7 @@
+import { useForm } from 'react-hook-form';
+
+import UserInfo from '@/components/section/UserInfo';
+import { Button } from '@/components/ui/Button';
 import {
   Form,
   FormControl,
@@ -5,19 +9,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/Form";
-import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/Button";
-import useSession from "@/hooks/useSession";
-import { isObjectEmpty } from "@/lib/utils";
-import UserInfo from "@/components/section/UserInfo";
+} from '@/components/ui/Form';
+import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/textarea';
+import useSession from '@/hooks/useSession';
+import { isObjectEmpty } from '@/lib/utils';
 
 export default function CommentForm({ onSubmit, ...props }) {
   const validationSchema = {
     comment: {
-      required: "This field is required",
+      required: 'This field is required',
     },
   };
 
@@ -25,7 +26,7 @@ export default function CommentForm({ onSubmit, ...props }) {
 
   if (isObjectEmpty(session)) {
     validationSchema.fullname = {
-      required: "This field is required",
+      required: 'This field is required',
     };
   }
 
@@ -43,8 +44,8 @@ export default function CommentForm({ onSubmit, ...props }) {
       };
     },
     defaultValues: {
-      fullname: "",
-      comment: "",
+      fullname: '',
+      comment: '',
     },
   });
 
@@ -79,10 +80,7 @@ export default function CommentForm({ onSubmit, ...props }) {
             <FormItem>
               <FormLabel className="text-xs">Comment *</FormLabel>
               <FormControl>
-                <Textarea
-                  {...field}
-                  className="text-sm bg-slate-600 border-slate-500 min-h-12"
-                />
+                <Textarea {...field} className="text-sm bg-slate-600 border-slate-500 min-h-12" />
               </FormControl>
               <FormMessage className="text-xs" />
             </FormItem>

@@ -1,32 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Header from "@/components/section/Header";
-import ProductCard from "@/components/section/ProductCard";
-import { toast } from "@/hooks/useToast";
-import VideoDetail from "@/components/section/VideoDetail";
-import { Button } from "@/components/ui/Button";
+import { MessagesSquare, ThumbsUpIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import CommentForm from '@/components/section/CommentForm';
+import CommentItem from '@/components/section/CommentItem';
+import Header from '@/components/section/Header';
+import ProductCard from '@/components/section/ProductCard';
+import UserInfo from '@/components/section/UserInfo';
+import VideoDetail from '@/components/section/VideoDetail';
+import { Button } from '@/components/ui/Button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import useSession from '@/hooks/useSession';
+import useSocket from '@/hooks/useSocket';
+import { toast } from '@/hooks/useToast';
+import { isObjectEmpty } from '@/lib/utils';
+import { getComments, postComment } from '@/services/commentService';
 import {
   getProducts,
   getVideoById,
   updateVideoLikes,
   updateVideoViews,
-} from "@/services/videoService";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { MessagesSquare, ThumbsUpIcon } from "lucide-react";
-import CommentForm from "@/components/section/CommentForm";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { getComments, postComment } from "@/services/commentService";
-import useSession from "@/hooks/useSession";
-import { isObjectEmpty } from "@/lib/utils";
-import UserInfo from "@/components/section/UserInfo";
-import CommentItem from "@/components/section/CommentItem";
-import useSocket from "@/hooks/useSocket";
+} from '@/services/videoService';
 
 export default function Detail() {
   const { videoId } = useParams();
@@ -38,12 +33,8 @@ export default function Detail() {
   const [session, setSession] = useSession();
   const { comments, setInitialComments, sendComment } = useSocket();
 
-  const handleErrorResponse = (
-    error,
-    title = "Oops...",
-    codeThreshold = 500
-  ) => {
-    const type = error.code >= codeThreshold ? "destructive" : "default";
+  const handleErrorResponse = (error, title = 'Oops...', codeThreshold = 500) => {
+    const type = error.code >= codeThreshold ? 'destructive' : 'default';
     return {
       title,
       type,
@@ -103,22 +94,19 @@ export default function Detail() {
   const submitComment = async (commentData) => {
     try {
       const { data, message } = await postComment({ videoId, ...commentData });
-
       sendComment(data);
       setSheetOpen(false);
-
       setNotification({
-        title: "Info",
-        type: "default",
+        title: 'Info',
+        type: 'default',
         message,
       });
-
       const { username, avatar, fullname } = data;
-
       setSession({ username, avatar, fullname });
     } catch (error) {
       setNotification({
-        type: "destructive",
+        title: 'Ooops...!',
+        type: 'destructive',
         message: error.message,
       });
     }
@@ -150,10 +138,7 @@ export default function Detail() {
     <>
       <Header>
         {!isObjectEmpty(session) && (
-          <UserInfo
-            session={session}
-            className="rounded-full px-3 py-1 bg-slate-900 text-sm"
-          />
+          <UserInfo session={session} className="rounded-full px-3 py-1 bg-slate-900 text-sm" />
         )}
       </Header>
       {!isObjectEmpty(video) && (
@@ -168,11 +153,7 @@ export default function Detail() {
             </div>
             <div className="absolute top-1/2 transform -translate-y-1/2 right-0 overflow-auto touch-pan-y gap-2 flex-nowrap lg:flex flex-col snap-y hide-scrollbar hidden h-[65%] z-10">
               {products.map((product) => (
-                <ProductCard
-                  key={product._id}
-                  product={product}
-                  className="w-24"
-                />
+                <ProductCard key={product._id} product={product} className="w-24" />
               ))}
             </div>
           </div>
@@ -194,21 +175,15 @@ export default function Detail() {
             </div>
 
             <h3 className="font-semibold py-3">
-              <MessagesSquare size={20} className="inline-block mr-1" />{" "}
-              Comments
+              <MessagesSquare size={20} className="inline-block mr-1" /> Comments
             </h3>
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
                 <Button className="block w-full">Post comment</Button>
               </SheetTrigger>
-              <SheetContent
-                side="bottom"
-                className="bg-slate-700 text-slate-50 border-t-0 mr-auto"
-              >
+              <SheetContent side="bottom" className="bg-slate-700 text-slate-50 border-t-0 mr-auto">
                 <SheetHeader>
-                  <SheetTitle className="text-white font-bold">
-                    Post comment
-                  </SheetTitle>
+                  <SheetTitle className="text-white font-bold">Post comment</SheetTitle>
                 </SheetHeader>
                 <CommentForm onSubmit={handleComment} />
               </SheetContent>

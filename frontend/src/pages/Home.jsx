@@ -1,31 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useCallback, useEffect } from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/Tabs";
-import VideoCard from "@/components/section/VideoCard";
-import { tabs } from "@/lib/config";
-import { useToast } from "@/hooks/useToast";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { PlayCircleIcon } from "lucide-react";
-import { getVideos } from "@/services/videoService";
-import SearchForm from "@/components/section/SearchForm";
-import Header from "@/components/section/Header";
+import { PlayCircleIcon } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+import Header from '@/components/section/Header';
+import SearchForm from '@/components/section/SearchForm';
+import VideoCard from '@/components/section/VideoCard';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
+import { useToast } from '@/hooks/useToast';
+import { tabs } from '@/lib/config';
+import { getVideos } from '@/services/videoService';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(tabs[0].key);
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState('');
   const [videos, setVideos] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
   const resetState = () => {
     setPage(1);
     setVideos([]);
-    setError("");
+    setError('');
     setHasMore(true);
-    setSearchKeyword("");
+    setSearchKeyword('');
     setLoading(false);
   };
 
@@ -76,9 +77,9 @@ export default function Home() {
   useEffect(() => {
     if (error) {
       toast({
-        title: "Oops...",
+        title: 'Oops...',
         description: error,
-        variant: "destructive",
+        variant: 'destructive',
       });
     }
   }, [error]);
