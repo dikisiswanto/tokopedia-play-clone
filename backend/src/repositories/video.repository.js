@@ -13,7 +13,8 @@ const getVideos = async (query, sort, page = 0, limit = 0) => {
   }
 
   if (field) {
-    sortQuery[field] = order === 'desc' ? -1 : 1;
+    const fieldQuery = field === 'likes' ? 'likesCount' : field;
+    sortQuery[fieldQuery] = order === 'desc' ? -1 : 1;
   }
 
   const skip = page && limit ? (page - 1) * limit : page;
@@ -58,7 +59,11 @@ const updateVideo = async (id, videoData) =>
 const deleteVideo = async (id) => await Video.findByIdAndDelete(id);
 
 const addUserLike = async (id, userIpAddress) =>
-  await Video.findByIdAndUpdate(id, { $push: { likes: userIpAddress } }, { new: true })
+  await Video.findByIdAndUpdate(
+    id,
+    { $push: { likes: userIpAddress }, $inc: { likesCount: 1 } },
+    { new: true },
+  )
     .populate('channelId')
     .exec();
 

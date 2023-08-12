@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 const CommentService = require('../services/comment.service');
 const AvatarService = require('../services/avatar.service');
 const VideoService = require('../services/video.service');
+
 const {
   handleServerError,
   handleResponse,
@@ -97,8 +98,6 @@ const createComment = async (req, res) => {
     }
 
     const createdComment = await CommentService.createComment(commentData);
-
-    CommentService.setUserSession(res, commentData);
 
     return handleResponse(res, 201, 'Data created successfully', createdComment);
   } catch (error) {

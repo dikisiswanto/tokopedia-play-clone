@@ -6,6 +6,7 @@ const setCookies = (res, cookies) => {
       maxAge: maxAgeInMilliseconds,
       httpOnly: true,
       path: '/',
+      secure: false,
     });
   });
 

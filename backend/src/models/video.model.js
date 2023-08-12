@@ -13,6 +13,7 @@ const videoSchema = new mongoose.Schema(
       ref: 'Channel',
       required: true,
     },
+    likesCount: { type: Number, default: 0 },
   },
   { timestamps: true },
 );
