@@ -60,11 +60,7 @@ export default function CommentForm({ onSubmit, ...props }) {
               <FormItem>
                 <FormLabel className="text-xs">Full Name *</FormLabel>
                 <FormControl>
-                  <Input
-                    {...field}
-                    defaultValue={session.fullname}
-                    className="text-sm bg-slate-600 border-slate-500"
-                  />
+                  <Input {...field} className="text-sm bg-slate-600 border-slate-500" />
                 </FormControl>
                 <FormMessage className="text-xs" />
               </FormItem>

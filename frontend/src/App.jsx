@@ -1,3 +1,4 @@
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Toaster } from '@/components/ui/Toaster';
@@ -6,7 +7,7 @@ import Home from '@/pages/Home';
 
 function App() {
   return (
-    <>
+    <HelmetProvider>
       <section className="bg-gray-800 text-slate-100 w-full font-inter">
         <div className="container max-w-6xl mx-auto w-full px-3 flex flex-col min-h-screen">
           <BrowserRouter>
@@ -18,7 +19,7 @@ function App() {
         </div>
       </section>
       <Toaster />
-    </>
+    </HelmetProvider>
   );
 }
 

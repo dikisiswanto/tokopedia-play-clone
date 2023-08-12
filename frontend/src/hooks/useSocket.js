@@ -6,20 +6,23 @@ import { SOCKET_URL } from '@/lib/config';
 
 const useSocket = () => {
   const [comments, setComments] = useState([]);
-
   const socket = io(SOCKET_URL);
 
   useEffect(() => {
+    socket.connect();
+
+    const onCommentEvent = (comment) => {
+      setComments((prevComments) => [comment, ...prevComments]);
+    };
+
     socket.on('connect', () => {
       console.info('Socket connected successfully');
     });
 
-    socket.on('comment', (comment) => {
-      setComments((prevComments) => [comment, ...prevComments]);
-    });
+    socket.on('comment', onCommentEvent);
 
     return () => {
-      socket.off('comment');
+      socket.off('comment', onCommentEvent);
       socket.off('connect');
       socket.disconnect();
     };

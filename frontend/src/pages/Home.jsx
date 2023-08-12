@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { PlayCircleIcon } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Header from '@/components/section/Header';
@@ -26,8 +26,8 @@ export default function Home() {
     setPage(1);
     setVideos([]);
     setError('');
-    setHasMore(true);
     setSearchKeyword('');
+    setHasMore(true);
     setLoading(false);
   };
 
@@ -36,14 +36,13 @@ export default function Home() {
     setActiveTab(tabName);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    resetState();
-    const keywordVal = event.target.q.value.trim();
-    setSearchKeyword(keywordVal);
+  const handleSubmit = (data) => {
+    const { q: keyword } = data;
+    handleChangeTab('search_result');
+    setSearchKeyword(keyword);
   };
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     try {
       const { data } = await getVideos({
         sortField: activeTab,
@@ -63,16 +62,13 @@ export default function Home() {
       setLoading(false);
     } catch (error) {
       resetState();
-      setError(error.response?.data?.error || error.message);
+      setError(error.code >= 500 ? error.response?.data?.error : error.message);
     }
-  }, [activeTab, page]);
+  };
 
   useEffect(() => {
     setLoading(true);
     fetchData();
-    return () => {
-      resetState();
-    };
   }, [activeTab, searchKeyword]);
 
   useEffect(() => {
@@ -94,14 +90,18 @@ export default function Home() {
         <SearchForm onSubmit={handleSubmit} />
       </Header>
       <Tabs className="py-2" value={activeTab} onValueChange={handleChangeTab}>
-        <TabsList className="flex gap-1.5 text-sm">
+        <TabsList className="flex gap-1.5 text-sm overflow-auto hide-scrollbar">
           {tabs.map(({ key, id, name }) => (
             <TabsTrigger key={id} value={key}>
               {name}
             </TabsTrigger>
           ))}
+          {searchKeyword && <TabsTrigger value="search_result">🔍 Search result</TabsTrigger>}
         </TabsList>
         <TabsContent value={activeTab} className="pt-2 pb-5 flex-1">
+          {!error && searchKeyword && (
+            <p className="text-sm pb-5 -mt-5">Showing result for {searchKeyword}</p>
+          )}
           {!error && (
             <InfiniteScroll
               dataLength={videos.length}
@@ -121,7 +121,7 @@ export default function Home() {
                 <VideoCard key={video._id} data={video} />
               ))}
 
-              {!loading && !videos.length && <p>Tidak ada video</p>}
+              {!loading && !videos.length && <p>Oops... No video found</p>}
 
               {page === 1 &&
                 loading &&

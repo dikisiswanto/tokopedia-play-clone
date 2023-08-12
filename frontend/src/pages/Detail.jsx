@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { MessagesSquare, ThumbsUpIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 import CommentForm from '@/components/section/CommentForm';
@@ -155,7 +155,7 @@ export default function Detail() {
             <div className="w-full absolute top-0 z-10 px-1.5 py-1 lg:px-5 lg:py-4 flex justify-between items-center lg:items-start bg-black">
               <p className="line-clamp-1 lg:line-clamp-2">{video.title}</p>
             </div>
-            <div className="absolute top-1/2 transform -translate-y-1/2 right-0 overflow-auto touch-pan-y gap-2 flex-nowrap lg:flex flex-col snap-y hide-scrollbar hidden h-[65%] z-10 mr-4">
+            <div className="absolute top-1/2 transform -translate-y-1/2 right-0 overflow-auto gap-y-2 flex-nowrap lg:flex flex-col hide-scrollbar hidden h-[65%] z-10 mr-2">
               {products.map((product) => (
                 <ProductCard key={product._id} product={product} className="w-24" />
               ))}

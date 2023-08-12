@@ -66,9 +66,9 @@ export function simplifyNumber(number) {
   ];
 
   const format = formats.find((format) => number < format.limit);
-  const simplifiedNumber = (number / (format ? format.limit / 1000 : 1)).toFixed(2);
+  const simplifiedNumber = (number / (format ? format.limit / 1000 : 1)).toFixed(1);
 
-  return `${simplifiedNumber.replace(/\.00$/, '')}${format ? format.suffix : ''}`;
+  return `${simplifiedNumber.replace(/\.0$/, '')}${format ? format.suffix : ''}`;
 }
 
 export function generateUsername(fullName) {

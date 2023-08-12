@@ -8,7 +8,7 @@ export default function SearchForm({ onSubmit }) {
   const form = useForm();
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit} method="post">
+      <form onSubmit={form.handleSubmit(onSubmit)} method="post">
         <FormField
           control={form.control}
           name="q"

@@ -3,13 +3,18 @@ import axios from 'axios';
 import { BASE_API_URL } from '@/lib/config';
 
 export const getVideos = async ({ sortField, page, limit, query }) => {
+  const allowedFields = ['createdAt', 'likes', 'title', 'views'];
+
   const configs = {
     params: {
-      sort_by: sortField,
       page,
       limit,
     },
   };
+
+  if (allowedFields.includes(sortField)) {
+    configs.params.sort_by = sortField;
+  }
 
   if (query) {
     configs.params.query = query;
