@@ -10,7 +10,7 @@ import ProductCard from '@/components/section/ProductCard';
 import UserInfo from '@/components/section/UserInfo';
 import VideoDetail from '@/components/section/VideoDetail';
 import { Button } from '@/components/ui/Button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/Sheet';
 import useSession from '@/hooks/useSession';
 import useSocket from '@/hooks/useSocket';
 import { toast } from '@/hooks/useToast';
