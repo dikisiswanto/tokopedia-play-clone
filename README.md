@@ -1,7 +1,12 @@
 # Tokopedia Play Clone
 
-This project aims to replicate core features of Tokopedia Play, allowing users to explore and enjoy a variety of videos.
+This project aims to replicate core features of Tokopedia Play, allowing users to explore and enjoy various videos.
 
+<img width="100%" alt="video homepage" src="https://github.com/dikisiswanto/tokopedia-play-clone/assets/22239074/f01582ef-cb5c-419f-947a-ae0a40aa62d6">
+<img width="100%" alt="video detail page" src="https://github.com/dikisiswanto/tokopedia-play-clone/assets/22239074/df818eb6-2b8f-41ae-8a11-1bad63047270">
+
+## Demo
+[https://tokopedia-play.silirdev.com](https://tokopedia-play.silirdev.com)
 
 ## Features
 
@@ -27,7 +32,7 @@ Below are the key features of the application:
 
 - **Commenting**: Users can leave comments on videos, promoting engagement and interaction.
 
-- **Realtime Comments**: Realtime comments create dynamic discussions among users.
+- **Realtime Comments**: Real-time comments create dynamic discussions among users.
 
 ## Technologies Used
 
