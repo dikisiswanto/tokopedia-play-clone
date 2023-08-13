@@ -102,9 +102,9 @@ export default function CommentForm({ onSubmit, isLoading, ...props }) {
           type="submit"
           className="inline-flex items-center w-full mt-5"
           variant="primary"
-          disabled={isLoading}
+          disabled={isLoading && isSubmitting}
         >
-          {isLoading && <Loader2Icon className="animate-spin inline-block mr-1" />}
+          {isLoading && isSubmitting && <Loader2Icon className="animate-spin inline-block mr-1" />}
           Submit
         </Button>
       </form>
