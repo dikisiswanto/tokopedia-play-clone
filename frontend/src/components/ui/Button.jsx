@@ -20,7 +20,7 @@ const buttonVariants = cva(
         greeny:
           'bg-green-500 text-slate-50 hover:bg-green-500/80 dark:bg-green-800 dark:text-green-50 dark:hover:bg-green-800/80',
         primary:
-          'bg-violet-900 text-violet-50 hover:bg-violet-900/90 dark:bg-violet-50 dark:text-violet-900 dark:hover:bg-violet-50/90',
+          'bg-violet-900 text-violet-50 hover:bg-violet-900/90 dark:bg-violet-50 dark:text-violet-900 dark:hover:bg-violet-50/90 disabled:bg-violet-600',
         ghost:
           'hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50',
         link: 'text-slate-900 underline-offset-4 hover:underline dark:text-slate-50',

@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Loader2Icon } from 'lucide-react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import UserInfo from '@/components/section/UserInfo';
@@ -16,13 +19,13 @@ import useSession from '@/hooks/useSession';
 import { isObjectEmpty } from '@/lib/utils';
 
 export default function CommentForm({ onSubmit, ...props }) {
+  const [session] = useSession();
+
   const validationSchema = {
     comment: {
       required: 'This field is required',
     },
   };
-
-  const [session] = useSession();
 
   if (isObjectEmpty(session)) {
     validationSchema.fullname = {
@@ -49,12 +52,23 @@ export default function CommentForm({ onSubmit, ...props }) {
     },
   });
 
+  const {
+    reset,
+    control,
+    handleSubmit,
+    formState: { isSubmitting, isSubmitSuccessful },
+  } = form;
+
+  useEffect(() => {
+    reset();
+  }, [isSubmitSuccessful]);
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} {...props}>
+      <form onSubmit={handleSubmit(onSubmit)} {...props}>
         {isObjectEmpty(session) ? (
           <FormField
-            control={form.control}
+            control={control}
             name="fullname"
             render={({ field }) => (
               <FormItem>
@@ -70,7 +84,7 @@ export default function CommentForm({ onSubmit, ...props }) {
           <UserInfo session={session} />
         )}
         <FormField
-          control={form.control}
+          control={control}
           name="comment"
           render={({ field }) => (
             <FormItem>
@@ -82,7 +96,13 @@ export default function CommentForm({ onSubmit, ...props }) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="block mt-5 w-full" variant="primary">
+        <Button
+          type="submit"
+          className="inline-flex items-center w-full mt-5"
+          variant="primary"
+          disabled={isSubmitting}
+        >
+          {isSubmitting && <Loader2Icon className="animate-spin inline-block mr-1" />}
           Submit
         </Button>
       </form>
