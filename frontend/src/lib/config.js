@@ -14,6 +14,6 @@ export const tabs = [
   {
     id: 2,
     key: 'likes',
-    name: '💖 Favorited',
+    name: '💖 Favorite',
   },
 ];
