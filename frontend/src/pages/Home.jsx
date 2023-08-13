@@ -121,7 +121,11 @@ export default function Home() {
                 <VideoCard key={video._id} data={video} />
               ))}
 
-              {!loading && !videos.length && <p>Oops... No video found</p>}
+              {!loading && !videos.length && (
+                <p className="col-span-2 md:col-span-3 lg:col-span-5 row-span-1">
+                  Oops... No video found
+                </p>
+              )}
 
               {page === 1 &&
                 loading &&
