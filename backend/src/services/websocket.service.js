@@ -14,8 +14,12 @@ const setupSocket = (server) => {
     ioServer = io.of('/socket');
 
     ioServer.on('connection', (socket) => {
-      socket.on('comment', (comment) => {
-        ioServer.emit('comment', comment);
+      socket.on('comment', ({ videoId, ...comment }) => {
+        ioServer.to(videoId).emit('comment', { videoId, ...comment });
+      });
+
+      socket.on('joinRoom', (videoId) => {
+        socket.join(videoId);
       });
 
       socket.on('disconnect', () => {
