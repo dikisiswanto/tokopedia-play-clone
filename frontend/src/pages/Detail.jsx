@@ -94,7 +94,7 @@ export default function Detail() {
 
   const submitComment = async (commentData) => {
     try {
-      const { data, message } = await postComment({ videoId, ...commentData });
+      const { data, message } = await postComment(commentData);
       sendComment(data);
       setSheetOpen(false);
       setNotification({
