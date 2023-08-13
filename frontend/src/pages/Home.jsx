@@ -58,7 +58,7 @@ export default function Home() {
       }
 
       setPage((prevPage) => prevPage + 1);
-      setHasMore(data.videos?.length > 0);
+      setHasMore(data.videos?.length >= 10);
       setLoading(false);
     } catch (error) {
       resetState();
