@@ -114,10 +114,10 @@ export default function Detail() {
     }
   };
 
-  const handleComment = (data) => {
+  const handleComment = async (data) => {
     setIsLoading(true);
     const commentData = { ...data, ...session, videoId };
-    submitComment(commentData);
+    await submitComment(commentData);
     setIsLoading(false);
   };
 
