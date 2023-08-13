@@ -1,5 +1,5 @@
-export const BASE_API_URL = 'http://localhost:3000/api';
-export const SOCKET_URL = 'http://localhost:3000/socket';
+export const BASE_API_URL = import.meta.env.BASE_API_URL;
+export const SOCKET_URL = import.meta.env.SOCKET_URL;
 export const tabs = [
   {
     id: 0,

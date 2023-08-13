@@ -82,7 +82,7 @@ export default function CommentForm({ onSubmit, ...props }) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="block mt-5 w-full">
+        <Button type="submit" className="block mt-5 w-full" variant="primary">
           Submit
         </Button>
       </form>

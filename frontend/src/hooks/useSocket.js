@@ -32,11 +32,15 @@ const useSocket = () => {
     socket.emit('comment', comment);
   };
 
+  const joinRoom = (roomId) => {
+    socket.emit('joinRoom', roomId);
+  };
+
   const setInitialComments = (initialComments) => {
     setComments(initialComments);
   };
 
-  return { comments, sendComment, setInitialComments };
+  return { comments, sendComment, setInitialComments, joinRoom };
 };
 
 export default useSocket;

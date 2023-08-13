@@ -7,7 +7,7 @@ export default function ProductCard({ product, className }) {
       rel="noopener noreferrer nofollow"
       target="_blank"
       className={cn(
-        'shadow rounded-lg overflow-hidden bg-white w-32 text-slate-900 inline-block flex-shrink-0 snap-center',
+        'shadow rounded-lg overflow-hidden bg-white w-32 text-slate-900 block flex-shrink-0 snap-center',
         className,
       )}
     >

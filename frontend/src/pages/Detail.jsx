@@ -32,7 +32,7 @@ export default function Detail() {
   const [videoLikesCount, setVideoLikesCount] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [session, setSession] = useSession();
-  const { comments, setInitialComments, sendComment } = useSocket();
+  const { comments, setInitialComments, sendComment, joinRoom } = useSocket();
 
   const handleErrorResponse = (error, title = 'Oops...', codeThreshold = 500) => {
     const type = error.code >= codeThreshold ? 'destructive' : 'default';
@@ -114,7 +114,7 @@ export default function Detail() {
   };
 
   const handleComment = (data) => {
-    const commentData = { ...data, ...session };
+    const commentData = { ...data, ...session, videoId };
     submitComment(commentData);
   };
 
@@ -134,6 +134,10 @@ export default function Detail() {
       });
     }
   }, [notification]);
+
+  useEffect(() => {
+    joinRoom(videoId);
+  }, []);
 
   return (
     <>
@@ -155,7 +159,7 @@ export default function Detail() {
             <div className="w-full absolute top-0 z-10 px-1.5 py-1 lg:px-5 lg:py-4 flex justify-between items-center lg:items-start bg-black">
               <p className="line-clamp-1 lg:line-clamp-2">{video.title}</p>
             </div>
-            <div className="absolute top-1/2 transform -translate-y-1/2 right-0 overflow-auto gap-y-2 flex-nowrap lg:flex flex-col hide-scrollbar hidden h-[65%] z-10 mr-2">
+            <div className="absolute top-1/2 transform -translate-y-1/2 right-0 overflow-y-auto touch-pan-y snap-y lg:block space-y-2 hide-scrollbar hidden h-[65%] z-20 pr-4">
               {products.map((product) => (
                 <ProductCard key={product._id} product={product} className="w-24" />
               ))}
@@ -183,9 +187,11 @@ export default function Detail() {
             </h3>
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
-                <Button className="block w-full">Post comment</Button>
+                <Button className="block w-full" variant="primary">
+                  Post comment
+                </Button>
               </SheetTrigger>
-              <SheetContent side="bottom" className="bg-slate-700 text-slate-50 border-t-0 mr-auto">
+              <SheetContent side="bottom" className="bg-slate-800 text-slate-50 border-t-0 mr-auto">
                 <SheetHeader>
                   <SheetTitle className="text-white font-bold">Post comment</SheetTitle>
                 </SheetHeader>

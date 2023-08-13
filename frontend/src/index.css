@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* For firefox */
 .hide-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--secondary) var(--primary);
+  scrollbar-width: 0;
 }
 
 /* Chrome, Edge, and Safari */
 .hide-scrollbar::-webkit-scrollbar {
-  width: 15px;
+  width: 0;
 }
 
 .hide-scrollbar::-webkit-scrollbar-track {
@@ -18,7 +18,5 @@
 }
 
 .hide-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--secondary);
   border-radius: 14px;
-  border: 3px solid var(--primary);
 }
