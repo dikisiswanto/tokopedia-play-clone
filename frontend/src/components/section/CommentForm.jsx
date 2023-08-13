@@ -18,7 +18,7 @@ import { Textarea } from '@/components/ui/Textarea';
 import useSession from '@/hooks/useSession';
 import { isObjectEmpty } from '@/lib/utils';
 
-export default function CommentForm({ onSubmit, ...props }) {
+export default function CommentForm({ onSubmit, isLoading, ...props }) {
   const [session] = useSession();
 
   const validationSchema = {
@@ -60,8 +60,10 @@ export default function CommentForm({ onSubmit, ...props }) {
   } = form;
 
   useEffect(() => {
-    reset();
-  }, [isSubmitSuccessful]);
+    if (isSubmitSuccessful && !isLoading) {
+      reset();
+    }
+  }, [isSubmitSuccessful, isLoading]);
 
   return (
     <Form {...form}>
@@ -100,9 +102,9 @@ export default function CommentForm({ onSubmit, ...props }) {
           type="submit"
           className="inline-flex items-center w-full mt-5"
           variant="primary"
-          disabled={isSubmitting}
+          disabled={isLoading}
         >
-          {isSubmitting && <Loader2Icon className="animate-spin inline-block mr-1" />}
+          {isLoading && <Loader2Icon className="animate-spin inline-block mr-1" />}
           Submit
         </Button>
       </form>

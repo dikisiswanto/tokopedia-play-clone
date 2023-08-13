@@ -32,6 +32,7 @@ export default function Detail() {
   const [videoLikesCount, setVideoLikesCount] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [session, setSession] = useSession();
+  const [isLoading, setIsLoading] = useState(false);
   const { comments, setInitialComments, sendComment, joinRoom } = useSocket();
 
   const handleErrorResponse = (error, title = 'Oops...', codeThreshold = 500) => {
@@ -114,8 +115,10 @@ export default function Detail() {
   };
 
   const handleComment = (data) => {
+    setIsLoading(true);
     const commentData = { ...data, ...session, videoId };
     submitComment(commentData);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -195,7 +198,7 @@ export default function Detail() {
                 <SheetHeader>
                   <SheetTitle className="text-white font-bold">Post comment</SheetTitle>
                 </SheetHeader>
-                <CommentForm onSubmit={handleComment} />
+                <CommentForm onSubmit={handleComment} isLoading={isLoading} />
               </SheetContent>
             </Sheet>
             <div className="h-56 pb-5 overflow-auto space-y-1">
