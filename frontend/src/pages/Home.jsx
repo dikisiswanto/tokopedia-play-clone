@@ -5,6 +5,11 @@ import { Helmet } from 'react-helmet-async';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Header from '@/components/section/Header';
+import {
+  ContainerTransition,
+  ItemTransition,
+  PageTransition,
+} from '@/components/section/LayoutTransition';
 import SearchForm from '@/components/section/SearchForm';
 import VideoCard from '@/components/section/VideoCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
@@ -82,7 +87,7 @@ export default function Home() {
   }, [error]);
 
   return (
-    <>
+    <PageTransition>
       <Helmet>
         <title>Tokopedia Play Clone</title>
       </Helmet>
@@ -98,47 +103,51 @@ export default function Home() {
           ))}
           {searchKeyword && <TabsTrigger value="search_result">🔍 Search result</TabsTrigger>}
         </TabsList>
-        <TabsContent value={activeTab} className="pt-2 pb-5 flex-1">
-          {!error && searchKeyword && (
-            <p className="text-sm pb-5 -mt-5">Showing result for {searchKeyword}</p>
-          )}
-          {!error && (
-            <InfiniteScroll
-              dataLength={videos.length}
-              next={fetchData}
-              hasMore={hasMore}
-              loader={
-                <div className="mx-auto col-span-2 md:col-span-3 lg:col-span-5 row-span-1">
-                  <PlayCircleIcon
-                    className="animate-pulse inline-flex rounded-full bg-green-500 opacity-10"
-                    size={48}
-                  />
-                </div>
-              }
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-full overflow-hidden"
-            >
-              {videos.map((video) => (
-                <VideoCard key={video._id} data={video} />
-              ))}
+        <ContainerTransition key={activeTab}>
+          <TabsContent value={activeTab} className="pt-2 pb-5 flex-1">
+            {!error && searchKeyword && (
+              <p className="text-sm pb-5 -mt-5">Showing result for {searchKeyword}</p>
+            )}
+            {!error && (
+              <ItemTransition>
+                <InfiniteScroll
+                  dataLength={videos.length}
+                  next={fetchData}
+                  hasMore={hasMore}
+                  loader={
+                    <div className="mx-auto col-span-2 md:col-span-3 lg:col-span-5 row-span-1">
+                      <PlayCircleIcon
+                        className="animate-pulse inline-flex rounded-full bg-green-500 opacity-10"
+                        size={48}
+                      />
+                    </div>
+                  }
+                  className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-full overflow-hidden"
+                >
+                  {videos.map((video) => (
+                    <VideoCard key={video._id} data={video} />
+                  ))}
 
-              {!loading && !videos.length && (
-                <p className="col-span-2 md:col-span-3 lg:col-span-5 row-span-1">
-                  Oops... No video found
-                </p>
-              )}
+                  {!loading && !videos.length && (
+                    <p className="col-span-2 md:col-span-3 lg:col-span-5 row-span-1">
+                      Oops... No video found
+                    </p>
+                  )}
 
-              {page === 1 &&
-                loading &&
-                [...Array(5)].map((_e, i) => (
-                  <div
-                    key={i}
-                    className="w-full lg:h-96 md:h-80 h-64 overflow-hidden relative rounded-lg bg-slate-700/80 shadow-xl animate-pulse"
-                  />
-                ))}
-            </InfiniteScroll>
-          )}
-        </TabsContent>
+                  {page === 1 &&
+                    loading &&
+                    [...Array(5)].map((_e, i) => (
+                      <div
+                        key={i}
+                        className="w-full lg:h-96 md:h-80 h-64 overflow-hidden relative rounded-lg bg-slate-700/80 shadow-xl animate-pulse"
+                      />
+                    ))}
+                </InfiniteScroll>
+              </ItemTransition>
+            )}
+          </TabsContent>
+        </ContainerTransition>
       </Tabs>
-    </>
+    </PageTransition>
   );
 }
