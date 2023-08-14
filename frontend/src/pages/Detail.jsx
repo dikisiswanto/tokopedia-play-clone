@@ -71,10 +71,6 @@ export default function Detail() {
     }
   };
 
-  const handleLikeVideo = () => {
-    likeVideo();
-  };
-
   const getAllProducts = async () => {
     try {
       const { data } = await getProducts(videoId);
@@ -173,7 +169,7 @@ export default function Detail() {
               <Button
                 className="inline-flex items-center py-0.5 px-3"
                 variant="greeny"
-                onClick={() => handleLikeVideo()}
+                onClick={() => likeVideo()}
               >
                 <ThumbsUpIcon size={16} />
                 <span className="ml-1">{videoLikesCount}</span>
