@@ -167,8 +167,8 @@ export default function Detail() {
               </div>
             </ItemTransition>
           </div>
-          <div className="lg:w-1/3 w-full space-y-2 relative">
-            <ItemTransition>
+          <div className="lg:w-1/3 w-full">
+            <ItemTransition className="space-y-2 relative">
               <VideoDetail video={video}>
                 <Button
                   className="inline-flex items-center py-0.5 px-3"
@@ -204,7 +204,7 @@ export default function Detail() {
                   <CommentForm onSubmit={handleComment} isLoading={isLoading} />
                 </SheetContent>
               </Sheet>
-              <div className="h-56 pb-5 my-3 overflow-auto space-y-1">
+              <div className="h-56 pb-5 my-1 overflow-auto space-y-1">
                 {comments.map((comment) => (
                   <CommentItem key={comment._id} comment={comment} />
                 ))}
