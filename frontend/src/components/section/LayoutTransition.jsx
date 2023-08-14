@@ -20,7 +20,7 @@ export const PageTransition = ({ children }) => {
   );
 };
 
-export const ItemTransition = ({ children }) => {
+export const ItemTransition = ({ children, className }) => {
   const variants = {
     initial: { y: -20, opacity: 0 },
     animate: {
@@ -42,12 +42,7 @@ export const ItemTransition = ({ children }) => {
   };
 
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      variants={variants}
-      // transition={{ duration: 0.2 }}
-    >
+    <motion.div initial="initial" animate="animate" variants={variants} className={className}>
       {children}
     </motion.div>
   );
