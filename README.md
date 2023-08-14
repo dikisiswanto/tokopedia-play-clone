@@ -10,36 +10,42 @@ This project aims to replicate core features of Tokopedia Play, allowing users t
 
 ## Features
 
-Below are the key features of the application:
-
 ### Home Page
 
-- **Categorized Video Tabs**: Videos are organized into Latest, Trending, and Favorite tabs for easy discovery.
+[x] **Categorized Video Tabs:** Discover content in Latest, Trending (sorted by views), and Favorite (sorted by likes) tabs.
 
-- **Paginated Videos with Infinite Scroll**: Users can smoothly navigate through videos using paginated sections with infinite scroll functionality.
+[x] **Paginated Videos with Infinite Scroll:** Seamlessly navigate videos with paginated sections and infinite scroll.
 
-- **Lazy Loading Thumbnails**: Video thumbnails are loaded on-demand, improving initial page load times.
+[x] **Lazy Loading Thumbnails:** Optimize load times by loading video thumbnails as you scroll.
 
-- **Search Videos**: Users can search for specific videos using keywords.
+[x] **Search Videos:** Quickly find videos using powerful search functionality.
 
 ### Video Detail Page
 
-- **Associated Products**: Users can explore products related to the video content.
+[x] **Associated Products:** Explore related products for a richer experience.
 
-- **Video Details**: Video information, such as title, views, likes, and upload date.
+[x] **Video Details:** Access title, views, likes, and upload date.
 
-- **Like Videos**: Users can like videos to show appreciation.
+[x] **Like Videos:** Show appreciation by liking videos.
 
-- **Commenting**: Users can leave comments on videos, promoting engagement and interaction.
+[x] **Commenting:** Engage with others through comments.
 
-- **Realtime Comments**: Real-time comments create dynamic discussions among users.
+[x] **Realtime Comments:** Dynamic discussions with real-time updates.
+
+### Additional
+
+Enhanced with smooth animations powered by Framer Motion:
+
+[x] **Page Transition:** Seamlessly move between page.
+
+[x] **Item Transition:** Content with smooth transition.
 
 ## Technologies Used
 
-- Frontend: React.js
-- Backend: Node.js and Express
-- Database: MongoDB
-- Realtime Comments: Socket.IO
+Frontend: React.js
+Backend: Node.js and Express
+Database: MongoDB
+Realtime Comments: Socket.IO
 
 ## Contributing
 
