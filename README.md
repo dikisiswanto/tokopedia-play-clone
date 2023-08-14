@@ -12,33 +12,33 @@ This project aims to replicate core features of Tokopedia Play, allowing users t
 
 ### Home Page
 
-[x] **Categorized Video Tabs:** Discover content in Latest, Trending (sorted by views), and Favorite (sorted by likes) tabs.
+- [x] **Categorized Video Tabs:** Discover content in Latest, Trending (sorted by views), and Favorite (sorted by likes) tabs.
 
-[x] **Paginated Videos with Infinite Scroll:** Seamlessly navigate videos with paginated sections and infinite scroll.
+- [x] **Paginated Videos with Infinite Scroll:** Seamlessly navigate videos with paginated sections and infinite scroll.
 
-[x] **Lazy Loading Thumbnails:** Optimize load times by loading video thumbnails as you scroll.
+- [x] **Lazy Loading Thumbnails:** Optimize load times by loading video thumbnails as you scroll.
 
-[x] **Search Videos:** Quickly find videos using powerful search functionality.
+- [x] **Search Videos:** Quickly find videos.
 
 ### Video Detail Page
 
-[x] **Associated Products:** Explore related products for a richer experience.
+- [x] **Associated Products:** Explore related products.
 
-[x] **Video Details:** Access title, views, likes, and upload date.
+- [x] **Video Details:** Access title, views, likes, and upload date.
 
-[x] **Like Videos:** Show appreciation by liking videos.
+- [x] **Like Videos:** Show appreciation by liking videos.
 
-[x] **Commenting:** Engage with others through comments.
+- [x] **Commenting:** Engage with others through comments.
 
-[x] **Realtime Comments:** Dynamic discussions with real-time updates.
+- [x] **Realtime Comments:** Dynamic discussions with real-time updates.
 
 ### Additional
 
 Enhanced with smooth animations powered by Framer Motion:
 
-[x] **Page Transition:** Seamlessly move between page.
+- [x] **Page Transition:** Seamlessly move between page.
 
-[x] **Item Transition:** Content with smooth transition.
+- [x] **Item Transition:** Content with smooth transition.
 
 ## Technologies Used
 
